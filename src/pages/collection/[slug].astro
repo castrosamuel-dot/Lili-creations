@@ -20,35 +20,66 @@ const relatedProducts = products
 const descriptionParagraphs = product.description.split('\n\n');
 
 // JSON-LD Product Schema
+const siteUrl = "https://lili-s-creations.web.app";
 const productSchema = {
   "@context": "https://schema.org/",
-  "@type": product.tags.includes('One of a Kind') ? ["Product", "IndividualProduct"] : "Product",
-  "name": product.name,
-  "image": product.images.map((img: any) => new URL(img.src, Astro.site).href),
-  "description": product.shortDescription || product.description.substring(0, 160),
-  "sku": product.id,
-  "brand": {
-    "@type": "Brand",
-    "name": "Lili's Creations"
-  },
-  "offers": {
-    "@type": "Offer",
-    "url": Astro.url.href,
-    "priceCurrency": "USD",
-    "price": product.price.toFixed(2),
-    "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-    "itemCondition": "https://schema.org/NewCondition"
-  },
-  "material": product.materials.join(', '),
-  "category": product.category,
-  "creator": {
-    "@id": "https://lili-s-creations.web.app/#person"
-  }
+  "@graph": [
+    {
+      "@type": product.tags.includes('One of a Kind') ? ["Product", "IndividualProduct"] : "Product",
+      "name": product.name,
+      "image": product.images.map((img: any) => `${siteUrl}${img.src}`),
+      "description": product.shortDescription || product.description.substring(0, 160),
+      "sku": product.id,
+      "brand": {
+        "@type": "Brand",
+        "name": "Lili's Creations"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": Astro.url.href,
+        "priceCurrency": "USD",
+        "price": product.price.toFixed(2),
+        "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": {
+          "@id": `${siteUrl}/#organization`
+        }
+      },
+      "material": product.materials.join(', '),
+      "category": product.category,
+      "creator": {
+        "@id": `${siteUrl}/#person`
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Collection",
+          "item": `${siteUrl}/collection`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": product.name,
+          "item": `${siteUrl}/collection/${product.slug}`
+        }
+      ]
+    }
+  ]
 };
 ---
 
-<Layout 
-  title={`${product.name} — Handcrafted Artisan Jewelry`} 
+<Layout
+  title={`${product.name} — Handmade ${product.category} | Lili's Creations`}
   description={product.shortDescription || product.description.substring(0, 155)}
   image={primaryImage.src}
   type="product"

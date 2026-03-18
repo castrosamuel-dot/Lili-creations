@@ -6,11 +6,31 @@ import products from '../data/products.json';
 
 const categorySet = [...new Set(products.map(p => p.category))];
 const categories = ['All', ...categorySet.sort()];
+
+const siteUrl = "https://lili-s-creations.web.app";
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Handcrafted Artisan Jewelry Collection",
+  "description": "Browse unique handmade necklaces, rings, earrings, and bracelets. Each one-of-a-kind piece is crafted with natural gemstones, copper, and sterling silver.",
+  "url": `${siteUrl}/collection`,
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": products.length,
+    "itemListElement": products.map((p, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "url": `${siteUrl}/collection/${p.slug}`,
+      "name": p.name,
+    }))
+  }
+};
 ---
 
-<Layout 
-  title="Browse the Collection — Handcrafted Artisan Jewelry & One-of-a-Kind Pieces" 
-  description="Explore our full collection of handmade jewelry. Each piece is an original, crafted with intention using natural stones and recycled metals. Find your next heirloom here."
+<Layout
+  title="Handmade Jewelry Collection — Artisan Necklaces, Rings & Earrings | Lili's Creations"
+  description="Browse our collection of unique handcrafted jewelry. One-of-a-kind artisan necklaces, rings, earrings, and bracelets made with natural gemstones, copper, and sterling silver. Shop handmade."
+  jsonLd={collectionSchema}
 >
   <Hero
     title="Browse the Collection"

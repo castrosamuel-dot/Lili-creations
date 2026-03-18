@@ -36,12 +36,11 @@ const faqSchema = {
 };
 ---
 
-<Layout 
-  title="Meet the Maker — Artisan Jewelry Handcrafted by Lili" 
-  description="Learn about the story, philosophy, and traditional metalsmithing process behind Lili's Creations. Discover how we transform raw copper and natural stones into one-of-a-kind wearable art."
+<Layout
+  title="About Lili — Artisan Metalsmith & Handmade Jewelry Designer | Lili's Creations"
+  description="Meet the maker behind Lili's Creations. Learn about the story, philosophy, and traditional metalsmithing process that transforms raw copper, sterling silver, and natural gemstones into one-of-a-kind wearable art."
+  jsonLd={faqSchema}
 >
-  <!-- FAQ Schema -->
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
 
   <Hero
     title="Meet the Maker"

@@ -10,17 +10,20 @@ interface Props {
   image?: string;
   canonicalURL?: string;
   type?: 'website' | 'product';
+  jsonLd?: object;
 }
 
 const {
-  title = "Lili's Creations — Handcrafted Jewelry Inspired by Nature",
-  description = "One-of-a-kind artisan jewelry handcrafted with natural stones, copper, and silver. Discover unique necklaces, rings, and earrings inspired by the unhurried beauty of the natural world.",
+  title = "Lili's Creations — Handcrafted Artisan Jewelry | Unique Necklaces, Rings & Earrings",
+  description = "Shop one-of-a-kind handmade jewelry crafted with natural gemstones, copper, and sterling silver. Discover unique artisan necklaces, rings, earrings, and bracelets inspired by nature. Free shipping on select pieces.",
   image = "/images/working31.webp",
   canonicalURL = Astro.url.href,
-  type = 'website'
+  type = 'website',
+  jsonLd,
 } = Astro.props;
 
 const siteName = "Lili's Creations";
+const siteUrl = "https://lili-s-creations.web.app";
 const twitterHandle = "@liliscreations"; // Placeholder
 
 // JSON-LD Schema for Organization and Person
@@ -47,7 +50,7 @@ const schemaData = {
       "name": "Lili",
       "jobTitle": "Artisan Metalsmith & Jewelry Designer",
       "description": "Lili is an artisan jeweler specializing in hand-forged copper and silver pieces inspired by botanical forms and natural textures.",
-      "image": "https://lili-s-creations.web.app/images/placeholder-maker.svg",
+      "image": "https://lili-s-creations.web.app/images/working31.webp",
       "sameAs": ["https://lili-s-creations.web.app/about"]
     },
     {
@@ -67,12 +70,19 @@ const schemaData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <meta name="author" content="Lili's Creations" />
+    <meta name="theme-color" content="#C5A258" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={type} />
@@ -80,7 +90,10 @@ const schemaData = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -92,14 +105,15 @@ const schemaData = {
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
+
     <!-- Sitemap -->
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <ClientRouter />
 
-    <!-- Structured Data -->
+    <!-- Structured Data — Global -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData)} />
+    {jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}
 
     <!-- PayPal JS SDK -->
     <script is:inline src="https://www.paypal.com/sdk/js?client-id=ARMqV7_IvgaaxvMp-mWP_DpMmCizB62jEHwoTpAOn6PEn6BVq82F7PXSPyLgmj-BAZo2Qh5ZVTb9JU0N&currency=USD&intent=capture" data-sdk-integration-source="button-factory" async></script>
