@@ -1,0 +1,166 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ProductCard from '../components/ProductCard.astro';
+
+const categories = ['All', 'Necklaces', 'Rings', 'Earrings', 'Bracelets'];
+
+const products = [
+  { name: 'Moonlit Labradorite Drop', price: '$85', image: '/images/placeholder-necklace.svg', materials: 'Labradorite, antiqued copper', tag: 'One of a Kind', category: 'Necklaces' },
+  { name: 'Willow Wrap Ring', price: '$62', image: '/images/placeholder-ring.svg', materials: 'Sterling silver, freshwater pearl', category: 'Rings' },
+  { name: 'Morning Dew Hoops', price: '$48', image: '/images/placeholder-earrings.svg', materials: 'Gold-fill, green aventurine', tag: 'Bestseller', category: 'Earrings' },
+  { name: 'River Stone Cuff', price: '$95', image: '/images/placeholder-bracelet.svg', materials: 'Brass, jasper, hand-hammered', category: 'Bracelets' },
+  { name: 'Fern Frond Pendant', price: '$72', image: '/images/placeholder-necklace.svg', materials: 'Sterling silver, pressed fern', category: 'Necklaces' },
+  { name: 'Honeycomb Studs', price: '$38', image: '/images/placeholder-earrings.svg', materials: 'Gold-fill, hand-stamped', category: 'Earrings' },
+  { name: 'Twisted Vine Band', price: '$55', image: '/images/placeholder-ring.svg', materials: 'Sterling silver, oxidized', category: 'Rings' },
+  { name: 'Pebble Stack Bangles', price: '$78', image: '/images/placeholder-bracelet.svg', materials: 'Brass, beach pebble', tag: 'New', category: 'Bracelets' },
+  { name: 'Amber Glow Drops', price: '$65', image: '/images/placeholder-earrings.svg', materials: 'Gold-fill, amber resin', category: 'Earrings' },
+  { name: 'Moss Agate Ring', price: '$70', image: '/images/placeholder-ring.svg', materials: 'Sterling silver, moss agate', tag: 'One of a Kind', category: 'Rings' },
+  { name: 'Sage Leaf Lariat', price: '$88', image: '/images/placeholder-necklace.svg', materials: 'Gold-fill, carved jade', category: 'Necklaces' },
+  { name: 'Meadow Chain Bracelet', price: '$52', image: '/images/placeholder-bracelet.svg', materials: 'Sterling silver, peridot', category: 'Bracelets' },
+];
+---
+
+<Layout title="Browse the Collection — Lili's Creations">
+  <Hero
+    title="Browse the Collection"
+    subtitle="Each piece is handcrafted, one at a time, with care and quiet intention."
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <!-- Filter Tabs -->
+      <div class="filter-bar animate-on-scroll" role="tablist" aria-label="Filter by category">
+        {categories.map((cat) => (
+          <button
+            class:list={['filter-tab', { active: cat === 'All' }]}
+            role="tab"
+            aria-selected={cat === 'All' ? 'true' : 'false'}
+            data-category={cat.toLowerCase()}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Product Grid -->
+      <div class="product-grid" id="product-grid">
+        {products.map((product, i) => (
+          <div class={`product-grid__item delay-${(i % 4) + 1}`} data-category={product.category.toLowerCase()}>
+            <ProductCard
+              name={product.name}
+              price={product.price}
+              image={product.image}
+              materials={product.materials}
+              tag={product.tag}
+              href="#"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .filter-tab {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    padding: 0.5rem 1.2rem;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    background: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+
+  .filter-tab:hover {
+    color: var(--color-primary);
+    border-color: var(--color-border);
+  }
+
+  .filter-tab.active {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: rgba(197, 162, 88, 0.06);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .product-grid__item {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .product-grid__item.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  @media (max-width: 900px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+  }
+</style>
+
+<script>
+  function initFilters() {
+    const tabs = document.querySelectorAll('.filter-tab');
+    const items = document.querySelectorAll('.product-grid__item');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const category = (tab as HTMLElement).dataset.category;
+
+        // Update active tab
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        // Filter items
+        items.forEach(item => {
+          const el = item as HTMLElement;
+          if (category === 'all' || el.dataset.category === category) {
+            el.classList.remove('hidden');
+          } else {
+            el.classList.add('hidden');
+          }
+        });
+      });
+    });
+  }
+
+  initFilters();
+  document.addEventListener('astro:after-swap', initFilters);
+</script>

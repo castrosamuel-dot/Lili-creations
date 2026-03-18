@@ -1,0 +1,182 @@
+---
+interface Props {
+  name: string;
+  price: string;
+  image: string;
+  hoverImage?: string;
+  href?: string;
+  tag?: string;
+  materials?: string;
+}
+
+const {
+  name,
+  price,
+  image,
+  hoverImage,
+  href = '#',
+  tag,
+  materials
+} = Astro.props;
+---
+
+<article class="product-card animate-on-scroll">
+  <a href={href} class="product-card__link" aria-label={`View ${name}`}>
+    <div class="product-card__image-wrapper">
+      <img
+        src={image}
+        alt={name}
+        class="product-card__image product-card__image--primary"
+        loading="lazy"
+        decoding="async"
+      />
+      {hoverImage && (
+        <img
+          src={hoverImage}
+          alt={`${name} alternate view`}
+          class="product-card__image product-card__image--hover"
+          loading="lazy"
+          decoding="async"
+        />
+      )}
+      {tag && <span class="product-card__tag">{tag}</span>}
+
+      <!-- Gleam effect -->
+      <div class="product-card__gleam" aria-hidden="true"></div>
+    </div>
+
+    <div class="product-card__info">
+      <h3 class="product-card__name">{name}</h3>
+      {materials && <p class="product-card__materials">{materials}</p>}
+      <p class="product-card__price">{price}</p>
+    </div>
+  </a>
+</article>
+
+<style>
+  .product-card {
+    position: relative;
+  }
+
+  .product-card__link {
+    text-decoration: none;
+    display: block;
+  }
+
+  .product-card__image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    aspect-ratio: 4 / 5;
+    background-color: var(--color-surface);
+  }
+
+  .product-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.6s var(--ease-elegant);
+  }
+
+  .product-card__image--hover {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  .product-card__link:hover .product-card__image--primary {
+    transform: scale(1.04);
+  }
+
+  .product-card__link:hover .product-card__image--hover {
+    opacity: 1;
+  }
+
+  .product-card__link:hover .product-card__image-wrapper {
+    box-shadow: 0 16px 48px rgba(61, 54, 48, 0.1);
+  }
+
+  .product-card__tag {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    padding: 0.3rem 0.8rem;
+    background: var(--color-white);
+    color: var(--color-primary);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .product-card__gleam {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .product-card__gleam::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.06) 50%,
+      transparent 60%
+    );
+    transform: translateX(-100%) rotate(45deg);
+  }
+
+  .product-card__link:hover .product-card__gleam {
+    opacity: 1;
+  }
+
+  .product-card__link:hover .product-card__gleam::after {
+    animation: gleamMove 1.2s var(--ease-elegant) forwards;
+  }
+
+  @keyframes gleamMove {
+    to { transform: translateX(100%) rotate(45deg); }
+  }
+
+  .product-card__info {
+    padding: var(--space-sm) 0.2rem;
+    text-align: center;
+  }
+
+  .product-card__name {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 0.2rem;
+    transition: color var(--transition-base);
+  }
+
+  .product-card__link:hover .product-card__name {
+    color: var(--color-primary);
+  }
+
+  .product-card__materials {
+    font-size: 0.78rem;
+    color: var(--color-text-light);
+    font-style: italic;
+    margin-bottom: 0.3rem;
+  }
+
+  .product-card__price {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--color-text);
+  }
+</style>

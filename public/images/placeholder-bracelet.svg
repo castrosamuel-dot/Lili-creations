@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="750" viewBox="0 0 600 750">
+  <rect width="600" height="750" fill="#F3EDE4"/>
+  <ellipse cx="300" cy="350" rx="120" ry="80" fill="none" stroke="#C5A258" stroke-width="2" opacity="0.4"/>
+  <ellipse cx="300" cy="350" rx="100" ry="65" fill="none" stroke="#C5A258" stroke-width="1" opacity="0.25"/>
+  <circle cx="200" cy="310" r="6" fill="#A3B18A" opacity="0.4"/>
+  <circle cx="380" cy="380" r="6" fill="#C9A9A6" opacity="0.4"/>
+  <text x="300" y="500" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#8A7F72" opacity="0.6">Bracelet</text>
+</svg>

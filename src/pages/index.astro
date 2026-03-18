@@ -1,0 +1,377 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ProductCard from '../components/ProductCard.astro';
+
+const featuredPieces = [
+  {
+    name: 'Moonlit Labradorite Drop',
+    price: '$85',
+    image: '/images/placeholder-necklace.svg',
+    materials: 'Labradorite, antiqued copper',
+    tag: 'One of a Kind',
+  },
+  {
+    name: 'Willow Wrap Ring',
+    price: '$62',
+    image: '/images/placeholder-ring.svg',
+    materials: 'Sterling silver, freshwater pearl',
+  },
+  {
+    name: 'Morning Dew Hoops',
+    price: '$48',
+    image: '/images/placeholder-earrings.svg',
+    materials: 'Gold-fill, green aventurine',
+    tag: 'Bestseller',
+  },
+  {
+    name: 'River Stone Cuff',
+    price: '$95',
+    image: '/images/placeholder-bracelet.svg',
+    materials: 'Brass, jasper, hand-hammered',
+  },
+];
+
+const testimonials = [
+  {
+    quote: "I haven't taken off my Moonlit pendant since the day it arrived. It catches the light in the most beautiful way.",
+    author: 'Emma R.',
+    piece: 'Moonlit Labradorite Drop',
+  },
+  {
+    quote: "Lili's pieces feel like they were made just for me. The craftsmanship is exquisite and the personal touch means everything.",
+    author: 'Sarah M.',
+    piece: 'Custom Engagement Ring',
+  },
+  {
+    quote: 'Every time someone asks about my bracelet, I get to tell them it was handmade by an incredible artist. That story matters.',
+    author: 'Julia K.',
+    piece: 'Willow Wrap Bracelet',
+  },
+];
+---
+
+<Layout>
+  <!-- Hero -->
+  <Hero
+    title="Where Nature Meets Adornment"
+    subtitle="One-of-a-kind jewelry, handcrafted with natural stones, raw metals, and quiet intention."
+    cta={{ label: 'Explore the Collection', href: '/collection' }}
+    secondaryCta={{ label: 'Meet the Maker', href: '/about' }}
+    image="/images/placeholder-hero.svg"
+    overlay={false}
+  />
+
+  <!-- Featured Pieces -->
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        title="Lovingly Crafted"
+        subtitle="A selection of recent favorites from the studio"
+      />
+
+      <div class="featured-grid">
+        {featuredPieces.map((piece, i) => (
+          <div class={`delay-${i + 1}`}>
+            <ProductCard {...piece} href="/collection" />
+          </div>
+        ))}
+      </div>
+
+      <div class="featured-cta animate-on-scroll">
+        <a href="/collection" class="btn btn--outline">Browse the Full Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Teaser -->
+  <section class="section section--surface">
+    <div class="container">
+      <div class="story-teaser">
+        <div class="story-teaser__image animate-on-scroll">
+          <img src="/images/placeholder-maker.svg" alt="Lili at work in her studio" loading="lazy" />
+        </div>
+        <div class="story-teaser__content animate-on-scroll delay-2">
+          <span class="story-teaser__label">The Maker</span>
+          <h2>Crafted Gently, Cherished Always</h2>
+          <p>
+            Every piece begins with a quiet moment — a walk in the woods, the way light catches
+            a river stone, the curve of a wildflower petal. I shape metal and stone with my hands,
+            pouring intention into every detail.
+          </p>
+          <p>
+            When you wear a piece from Lili's Creations, you carry a small piece of that
+            stillness with you.
+          </p>
+          <a href="/about" class="btn btn--primary">Read My Story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        title="From Heart to Hand"
+        subtitle="Every piece is born from inspiration, shaped by fire, and finished with care"
+      />
+
+      <div class="process-steps">
+        <div class="process-step animate-on-scroll delay-1">
+          <div class="process-step__number">01</div>
+          <h3 class="process-step__title">Inspiration</h3>
+          <p class="process-step__text">
+            A texture in nature, the color of a stone, a feeling worth holding onto —
+            every piece starts with a spark.
+          </p>
+        </div>
+        <div class="process-step animate-on-scroll delay-2">
+          <div class="process-step__number">02</div>
+          <h3 class="process-step__title">Creation</h3>
+          <p class="process-step__text">
+            With steady hands and patient care, raw materials are shaped, hammered,
+            wrapped, and coaxed into something beautiful.
+          </p>
+        </div>
+        <div class="process-step animate-on-scroll delay-3">
+          <div class="process-step__number">03</div>
+          <h3 class="process-step__title">Connection</h3>
+          <p class="process-step__text">
+            Each finished piece is wrapped with love and sent on its way —
+            from my studio to your story.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section section--surface">
+    <div class="container">
+      <SectionHeader
+        title="Words from Those Who Wear Them"
+        subtitle="Small treasures, big feelings"
+      />
+
+      <div class="testimonials">
+        {testimonials.map((t, i) => (
+          <blockquote class={`testimonial animate-on-scroll delay-${i + 1}`}>
+            <p class="testimonial__quote">"{t.quote}"</p>
+            <footer class="testimonial__footer">
+              <cite class="testimonial__author">{t.author}</cite>
+              <span class="testimonial__piece">{t.piece}</span>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="section cta-banner">
+    <div class="container text-center">
+      <div class="animate-on-scroll">
+        <h2>Something Special in Mind?</h2>
+        <p class="cta-banner__text">
+          Every hand is unique, every story different. Let's create a piece
+          that's truly, perfectly yours.
+        </p>
+        <a href="/custom" class="btn btn--primary">Start Your Custom Piece</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Featured Grid */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .featured-cta {
+    text-align: center;
+    margin-top: var(--space-xl);
+  }
+
+  /* Story Teaser */
+  .story-teaser {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .story-teaser__image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .story-teaser__image img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    transition: transform var(--transition-slower);
+  }
+
+  .story-teaser__image:hover img {
+    transform: scale(1.02);
+  }
+
+  .story-teaser__label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+    display: block;
+  }
+
+  .story-teaser__content h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .story-teaser__content p {
+    margin-bottom: var(--space-sm);
+  }
+
+  .story-teaser__content .btn {
+    margin-top: var(--space-md);
+  }
+
+  /* Process Steps */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    text-align: center;
+  }
+
+  .process-step__number {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--color-primary);
+    opacity: 0.5;
+    margin-bottom: var(--space-sm);
+  }
+
+  .process-step__title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .process-step__text {
+    font-size: 0.92rem;
+    max-width: 30ch;
+    margin: 0 auto;
+  }
+
+  /* Testimonials */
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .testimonial {
+    background: var(--color-bg);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    position: relative;
+  }
+
+  .testimonial::before {
+    content: '\201C';
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    color: var(--color-primary);
+    opacity: 0.2;
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    line-height: 1;
+  }
+
+  .testimonial__quote {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+    position: relative;
+    z-index: 1;
+  }
+
+  .testimonial__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .testimonial__author {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--color-text);
+  }
+
+  .testimonial__piece {
+    font-size: 0.78rem;
+    color: var(--color-primary);
+    font-style: italic;
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  }
+
+  .cta-banner h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-banner__text {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.1rem;
+    max-width: 45ch;
+    margin: 0 auto var(--space-lg);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .featured-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .story-teaser {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    .process-steps {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    .testimonials {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+  }
+</style>

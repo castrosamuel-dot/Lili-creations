@@ -1,0 +1,305 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+---
+
+<Layout title="Meet the Maker — Lili's Creations">
+  <Hero
+    title="Meet the Maker"
+    subtitle="The hands, the heart, and the story behind every piece."
+    compact={true}
+  />
+
+  <!-- Origin Story -->
+  <section class="section">
+    <div class="container">
+      <div class="about-story">
+        <div class="about-story__image animate-on-scroll">
+          <img src="/images/placeholder-maker.svg" alt="Lili working at her studio bench" loading="lazy" />
+        </div>
+        <div class="about-story__content animate-on-scroll delay-2">
+          <span class="about-story__label">The Beginning</span>
+          <h2>It Started with a Pair of Pliers</h2>
+          <p>
+            I've always been drawn to the way nature creates beauty without trying — the spiral
+            of a seashell, the rough edge of a quartz crystal, the impossible green of new leaves
+            in spring.
+          </p>
+          <p>
+            Lili's Creations grew from that fascination. What started as a kitchen-table hobby became
+            a calling: to take raw, beautiful materials from the earth and shape them into pieces you
+            can carry with you every day.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="section section--surface">
+    <div class="container container--narrow text-center">
+      <div class="animate-on-scroll">
+        <span class="about-label">Philosophy</span>
+        <h2>Beauty Should Never Come at a Cost to the Earth</h2>
+        <div class="divider"><span class="divider__icon">&loz;</span></div>
+        <p class="about-philosophy">
+          I believe jewelry should feel like an extension of you — not a costume, but a quiet companion.
+          Every piece I make is shaped by hand, one at a time, with care and patience. I choose natural
+          stones and ethically sourced materials because beauty should never come at a cost to the earth
+          that inspires it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        title="The Process"
+        subtitle="From raw material to wearable art"
+      />
+
+      <div class="process-gallery">
+        <div class="process-card animate-on-scroll delay-1">
+          <div class="process-card__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+              <circle cx="24" cy="20" r="8"/>
+              <path d="M24 28 L24 40"/>
+              <path d="M18 34 L30 34"/>
+            </svg>
+          </div>
+          <h3>Sourcing</h3>
+          <p>
+            Every stone is hand-selected for its character and beauty. I work with
+            small-batch suppliers and gather natural materials on walks and travels.
+          </p>
+        </div>
+        <div class="process-card animate-on-scroll delay-2">
+          <div class="process-card__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M14 36 C14 36, 20 12, 24 12 C28 12, 34 36, 34 36"/>
+              <path d="M10 36 L38 36"/>
+              <circle cx="24" cy="12" r="3"/>
+            </svg>
+          </div>
+          <h3>Designing</h3>
+          <p>
+            Each piece begins as a sketch in my notebook. I draw inspiration from
+            organic shapes, the play of light, and the unique qualities of each stone.
+          </p>
+        </div>
+        <div class="process-card animate-on-scroll delay-3">
+          <div class="process-card__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M24 8 L24 28"/>
+              <path d="M18 14 L24 8 L30 14"/>
+              <rect x="12" y="28" width="24" height="12" rx="2"/>
+            </svg>
+          </div>
+          <h3>Crafting</h3>
+          <p>
+            With hammer, torch, and pliers, raw wire becomes something beautiful.
+            Every bend, every wrap, every polish is done by hand in my studio.
+          </p>
+        </div>
+        <div class="process-card animate-on-scroll delay-4">
+          <div class="process-card__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M24 8 C24 8, 36 16, 36 26 C36 32, 30 38, 24 40 C18 38, 12 32, 12 26 C12 16, 24 8, 24 8Z"/>
+              <path d="M24 20 L24 30"/>
+              <path d="M20 26 L28 26"/>
+            </svg>
+          </div>
+          <h3>Sending with Love</h3>
+          <p>
+            Each finished piece is carefully wrapped, tucked into its pouch, and sent
+            with a handwritten note — from my hands to your story.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section section--surface">
+    <div class="container">
+      <div class="values-grid">
+        <div class="value animate-on-scroll delay-1">
+          <h4>Handmade, Always</h4>
+          <p>No mass production, no shortcuts. Every piece is individually crafted with care.</p>
+        </div>
+        <div class="value animate-on-scroll delay-2">
+          <h4>Natural Materials</h4>
+          <p>Genuine gemstones, ethically sourced metals, and materials drawn from the natural world.</p>
+        </div>
+        <div class="value animate-on-scroll delay-3">
+          <h4>One of a Kind</h4>
+          <p>The small imperfections are proof that a real person made this, with real care.</p>
+        </div>
+        <div class="value animate-on-scroll delay-4">
+          <h4>Made with Intention</h4>
+          <p>Every piece is created mindfully — jewelry that doesn't shout, it hums.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sign-off -->
+  <section class="section">
+    <div class="container container--narrow text-center">
+      <div class="animate-on-scroll">
+        <p class="signoff-text">
+          When you choose a piece from Lili's Creations, you're not just buying jewelry.
+          You're choosing something made with intention, wrapped with care, and sent with
+          a little bit of my heart tucked inside.
+        </p>
+        <p class="signoff-signature">
+          With love and steady hands,<br/>
+          <span class="signoff-name">Lili</span>
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Story Section */
+  .about-story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .about-story__image img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .about-story__label,
+  .about-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .about-story__content h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .about-story__content p {
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Philosophy */
+  .about-philosophy {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.9;
+    max-width: 55ch;
+    margin: 0 auto;
+    color: var(--color-text);
+  }
+
+  /* Process Gallery */
+  .process-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .process-card {
+    text-align: center;
+    padding: var(--space-lg) var(--space-sm);
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-base);
+  }
+
+  .process-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(61, 54, 48, 0.06);
+    border-color: var(--color-primary);
+  }
+
+  .process-card__icon {
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .process-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .process-card p {
+    font-size: 0.88rem;
+    margin: 0 auto;
+  }
+
+  /* Values */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .value h4 {
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .value p {
+    font-size: 0.9rem;
+    margin: 0 auto;
+  }
+
+  /* Sign-off */
+  .signoff-text {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--color-text);
+    max-width: 50ch;
+    margin: 0 auto var(--space-lg);
+  }
+
+  .signoff-signature {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+  }
+
+  .signoff-name {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  @media (max-width: 900px) {
+    .about-story { grid-template-columns: 1fr; gap: var(--space-lg); }
+    .process-gallery { grid-template-columns: repeat(2, 1fr); }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .process-gallery { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+  }
+</style>

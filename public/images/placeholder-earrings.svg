@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="750" viewBox="0 0 600 750">
+  <rect width="600" height="750" fill="#F3EDE4"/>
+  <circle cx="230" cy="280" r="8" fill="none" stroke="#C5A258" stroke-width="1.5" opacity="0.4"/>
+  <line x1="230" y1="288" x2="230" y2="380" stroke="#C5A258" stroke-width="1" opacity="0.3"/>
+  <circle cx="230" cy="390" r="18" fill="#C9A9A6" opacity="0.3"/>
+  <circle cx="370" cy="280" r="8" fill="none" stroke="#C5A258" stroke-width="1.5" opacity="0.4"/>
+  <line x1="370" y1="288" x2="370" y2="380" stroke="#C5A258" stroke-width="1" opacity="0.3"/>
+  <circle cx="370" cy="390" r="18" fill="#C9A9A6" opacity="0.3"/>
+  <text x="300" y="500" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#8A7F72" opacity="0.6">Earrings</text>
+</svg>

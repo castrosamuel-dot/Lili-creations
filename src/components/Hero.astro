@@ -1,0 +1,218 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  cta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  image?: string;
+  overlay?: boolean;
+  compact?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  cta,
+  secondaryCta,
+  image,
+  overlay = true,
+  compact = false
+} = Astro.props;
+---
+
+<section class:list={['hero', { 'hero--compact': compact, 'hero--has-image': image }]}>
+  {image && (
+    <div class="hero__image-wrapper">
+      <img src={image} alt="" class="hero__image" loading="eager" />
+      {overlay && <div class="hero__overlay"></div>}
+    </div>
+  )}
+
+  <div class="hero__content container">
+    <div class="hero__text">
+      <h1 class="hero__title" transition:name="hero-title">{title}</h1>
+      {subtitle && <p class="hero__subtitle">{subtitle}</p>}
+      {(cta || secondaryCta) && (
+        <div class="hero__actions">
+          {cta && <a href={cta.href} class="btn btn--primary">{cta.label}</a>}
+          {secondaryCta && <a href={secondaryCta.href} class="btn btn--outline">{secondaryCta.label}</a>}
+        </div>
+      )}
+    </div>
+
+    <!-- Decorative botanical -->
+    <div class="hero__botanical" aria-hidden="true">
+      <svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 120 L40 30" stroke="currentColor" stroke-width="0.7" opacity="0.3"/>
+        <path d="M40 80 C25 70, 10 55, 15 35 C20 45, 30 55, 40 60" stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.25"/>
+        <path d="M40 65 C55 55, 70 40, 65 20 C60 30, 50 45, 40 50" stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.25"/>
+        <path d="M40 45 C30 35, 20 20, 25 5 C30 15, 35 28, 40 35" stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.2"/>
+        <circle cx="40" cy="30" r="3" fill="currentColor" opacity="0.15"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  {!compact && (
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-text">scroll</span>
+      <span class="hero__scroll-line"></span>
+    </div>
+  )}
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: calc(var(--header-height) + var(--space-2xl)) 0 var(--space-2xl);
+    overflow: hidden;
+    background-color: var(--color-bg);
+  }
+
+  .hero--compact {
+    min-height: 60vh;
+    padding: calc(var(--header-height) + var(--space-xl)) 0 var(--space-xl);
+  }
+
+  .hero--has-image {
+    color: var(--color-white);
+  }
+
+  .hero__image-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(61, 54, 48, 0.3) 0%,
+      rgba(61, 54, 48, 0.5) 100%
+    );
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .hero__text {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .hero__title {
+    margin-bottom: var(--space-md);
+    animation: heroFadeIn 1.2s var(--ease-elegant) both;
+  }
+
+  .hero--has-image .hero__title {
+    color: var(--color-white);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-heading);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--color-text-light);
+    max-width: 50ch;
+    margin: 0 auto var(--space-lg);
+    animation: heroFadeIn 1.2s var(--ease-elegant) 0.2s both;
+  }
+
+  .hero--has-image .hero__subtitle {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: heroFadeIn 1.2s var(--ease-elegant) 0.4s both;
+  }
+
+  .hero__botanical {
+    position: absolute;
+    bottom: 5%;
+    right: 8%;
+    color: var(--color-primary);
+    opacity: 0.4;
+    animation: heroFadeIn 2s var(--ease-elegant) 0.8s both;
+  }
+
+  .hero--has-image .hero__botanical {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: heroFadeIn 1.5s var(--ease-elegant) 1s both;
+  }
+
+  .hero__scroll-text {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    opacity: 0.5;
+  }
+
+  .hero--has-image .hero__scroll-text {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 40px;
+    background: var(--color-primary);
+    opacity: 0.4;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes heroFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(25px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 0.4; }
+    50% { transform: scaleY(0.6); opacity: 0.2; }
+  }
+
+  @media (max-width: 600px) {
+    .hero__botanical { display: none; }
+    .hero__scroll { display: none; }
+  }
+</style>

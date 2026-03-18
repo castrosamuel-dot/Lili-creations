@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  centered?: boolean;
+}
+
+const { title, subtitle, centered = true } = Astro.props;
+---
+
+<div class:list={['section-header animate-on-scroll', { 'text-center': centered }]}>
+  <h2>{title}</h2>
+  {subtitle && <p class="section-header__subtitle">{subtitle}</p>}
+  <div class="divider">
+    <span class="divider__icon">&loz;</span>
+  </div>
+</div>

@@ -1,0 +1,242 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<Layout title="Say Hello — Lili's Creations">
+  <Hero
+    title="Say Hello"
+    subtitle="Whether you have a question, a custom idea, or just want to chat about jewelry — I'd love to hear from you."
+    compact={true}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+        <!-- Contact Info -->
+        <div class="contact-info animate-on-scroll">
+          <div class="contact-card">
+            <h3>Let's Connect</h3>
+            <p>
+              I'm a real person behind this screen, and I read every message personally.
+              Whether it's a quick question about sizing or a big custom project idea,
+              don't hesitate to reach out.
+            </p>
+
+            <div class="contact-methods">
+              <div class="contact-method">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="M22 4L12 13 2 4"/>
+                </svg>
+                <div>
+                  <span class="contact-method__label">Email</span>
+                  <a href="mailto:hello@liliscreations.com">hello@liliscreations.com</a>
+                </div>
+              </div>
+
+              <div class="contact-method">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="5"/>
+                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+                </svg>
+                <div>
+                  <span class="contact-method__label">Instagram</span>
+                  <a href="#">@liliscreations</a>
+                </div>
+              </div>
+
+              <div class="contact-method">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                <div>
+                  <span class="contact-method__label">Response Time</span>
+                  <span>Within 48 hours</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-note">
+              <p>
+                <strong>Looking for a custom piece?</strong> Head over to the
+                <a href="/custom">Made Just for You</a> page for the full custom order form.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper animate-on-scroll delay-2">
+          <form class="contact-form" action="#" method="POST">
+            <div class="form-group">
+              <label for="contact-name" class="form-label">Your Name</label>
+              <input type="text" id="contact-name" name="name" class="form-input" required />
+            </div>
+
+            <div class="form-group">
+              <label for="contact-email" class="form-label">Your Email</label>
+              <input type="email" id="contact-email" name="email" class="form-input" required />
+            </div>
+
+            <div class="form-group">
+              <label for="contact-subject" class="form-label">Subject</label>
+              <select id="contact-subject" name="subject" class="form-input">
+                <option value="">What's this about?</option>
+                <option value="general">General Question</option>
+                <option value="order">Order Inquiry</option>
+                <option value="custom">Custom Piece Interest</option>
+                <option value="wholesale">Wholesale / Collaboration</option>
+                <option value="other">Something Else</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message" class="form-label">Your Message</label>
+              <textarea
+                id="contact-message"
+                name="message"
+                class="form-input form-textarea"
+                rows="6"
+                placeholder="I'd love to hear from you..."
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .contact-card {
+    background: var(--color-surface);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .contact-card h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact-card > p {
+    margin-bottom: var(--space-lg);
+    font-size: 0.92rem;
+  }
+
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .contact-method {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: flex-start;
+    color: var(--color-text-light);
+  }
+
+  .contact-method svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-method__label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin-bottom: 0.1rem;
+  }
+
+  .contact-method a,
+  .contact-method span:not(.contact-method__label) {
+    font-size: 0.95rem;
+    color: var(--color-text);
+  }
+
+  .contact-note {
+    background: var(--color-bg);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .contact-note p {
+    font-size: 0.85rem;
+  }
+
+  /* Form styles matching custom page */
+  .form-group { margin-bottom: var(--space-md); }
+
+  .form-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin-bottom: 0.4rem;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--color-text);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    appearance: none;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(197, 162, 88, 0.1);
+  }
+
+  .form-input::placeholder {
+    color: var(--color-text-light);
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  .form-textarea { resize: vertical; min-height: 140px; }
+
+  select.form-input {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' fill='none' stroke='%238A7F72' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+  }
+</style>

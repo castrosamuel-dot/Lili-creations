@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Page Not Found — Lili's Creations">
+  <section class="not-found">
+    <div class="container text-center">
+      <div class="not-found__botanical" aria-hidden="true">
+        <svg width="60" height="80" viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 80 L30 20" stroke="currentColor" stroke-width="0.7" opacity="0.3"/>
+          <path d="M30 60 C20 50, 10 38, 14 22 C18 32, 24 42, 30 48" stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.25"/>
+          <path d="M30 45 C40 35, 50 22, 46 8 C42 18, 36 30, 30 36" stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.25"/>
+          <circle cx="30" cy="20" r="3" fill="currentColor" opacity="0.15"/>
+        </svg>
+      </div>
+      <h1 class="not-found__title">Wandered Off</h1>
+      <p class="not-found__text">
+        This page seems to have wandered off the path.
+        Let's help you find your way back to something beautiful.
+      </p>
+      <div class="not-found__actions">
+        <a href="/" class="btn btn--primary">Return Home</a>
+        <a href="/collection" class="btn btn--outline">Browse the Collection</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .not-found {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--header-height) + var(--space-2xl)) 0 var(--space-2xl);
+  }
+
+  .not-found__botanical {
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .not-found__title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    margin-bottom: var(--space-sm);
+  }
+
+  .not-found__text {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.1rem;
+    max-width: 40ch;
+    margin: 0 auto var(--space-lg);
+  }
+
+  .not-found__actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
