@@ -7,12 +7,58 @@ import { ClientRouter } from 'astro:transitions';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  canonicalURL?: string;
+  type?: 'website' | 'product';
 }
 
 const {
-  title = "Lili's Creations — Handcrafted Jewelry",
-  description = "Handmade jewelry inspired by the textures, colors, and quiet beauty of the natural world. One-of-a-kind pieces crafted with natural stones, raw metals, and quiet intention."
+  title = "Lili's Creations — Handcrafted Jewelry Inspired by Nature",
+  description = "One-of-a-kind artisan jewelry handcrafted with natural stones, copper, and silver. Discover unique necklaces, rings, and earrings inspired by the unhurried beauty of the natural world.",
+  image = "/images/working31.webp",
+  canonicalURL = Astro.url.href,
+  type = 'website'
 } = Astro.props;
+
+const siteName = "Lili's Creations";
+const twitterHandle = "@liliscreations"; // Placeholder
+
+// JSON-LD Schema for Organization and Person
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lili-s-creations.web.app/#organization",
+      "name": siteName,
+      "url": "https://lili-s-creations.web.app/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://lili-s-creations.web.app/favicon.svg"
+      },
+      "sameAs": [
+        "https://www.instagram.com/lilis_creations", // Placeholders
+        "https://www.facebook.com/liliscreations"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://lili-s-creations.web.app/#person",
+      "name": "Lili",
+      "jobTitle": "Artisan Metalsmith & Jewelry Designer",
+      "description": "Lili is an artisan jeweler specializing in hand-forged copper and silver pieces inspired by botanical forms and natural textures.",
+      "image": "https://lili-s-creations.web.app/images/placeholder-maker.svg",
+      "sameAs": ["https://lili-s-creations.web.app/about"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://lili-s-creations.web.app/#website",
+      "url": "https://lili-s-creations.web.app/",
+      "name": siteName,
+      "publisher": { "@id": "https://lili-s-creations.web.app/#organization" }
+    }
+  ]
+};
 ---
 
 <!DOCTYPE html>
@@ -20,14 +66,43 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:site_name" content={siteName} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url.href} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+    {twitterHandle && <meta property="twitter:creator" content={twitterHandle} />}
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
     <ClientRouter />
-    <!-- PayPal JS SDK — Replace YOUR_CLIENT_ID with your live PayPal Client ID -->
-    <script is:inline src="https://www.paypal.com/sdk/js?client-id=ARMqV7_IvgaaxvMp-mWP_DpMmCizB62jEHwoTpAOn6PEn6BVq82F7PXSPyLgmj-BAZo2Qh5ZVTb9JU0N
-&currency=USD&intent=capture" data-sdk-integration-source="button-factory" async></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaData)} />
+
+    <!-- PayPal JS SDK -->
+    <script is:inline src="https://www.paypal.com/sdk/js?client-id=ARMqV7_IvgaaxvMp-mWP_DpMmCizB62jEHwoTpAOn6PEn6BVq82F7PXSPyLgmj-BAZo2Qh5ZVTb9JU0N&currency=USD&intent=capture" data-sdk-integration-source="button-factory" async></script>
   </head>
   <body>
     <Header />

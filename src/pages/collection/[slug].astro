@@ -18,9 +18,44 @@ const relatedProducts = products
   .slice(0, 4);
 
 const descriptionParagraphs = product.description.split('\n\n');
+
+// JSON-LD Product Schema
+const productSchema = {
+  "@context": "https://schema.org/",
+  "@type": product.tags.includes('One of a Kind') ? ["Product", "IndividualProduct"] : "Product",
+  "name": product.name,
+  "image": product.images.map((img: any) => new URL(img.src, Astro.site).href),
+  "description": product.shortDescription || product.description.substring(0, 160),
+  "sku": product.id,
+  "brand": {
+    "@type": "Brand",
+    "name": "Lili's Creations"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": Astro.url.href,
+    "priceCurrency": "USD",
+    "price": product.price.toFixed(2),
+    "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    "itemCondition": "https://schema.org/NewCondition"
+  },
+  "material": product.materials.join(', '),
+  "category": product.category,
+  "creator": {
+    "@id": "https://lili-s-creations.web.app/#person"
+  }
+};
 ---
 
-<Layout title={`${product.name} — Lili's Creations`} description={product.shortDescription}>
+<Layout 
+  title={`${product.name} — Handcrafted Artisan Jewelry`} 
+  description={product.shortDescription || product.description.substring(0, 155)}
+  image={primaryImage.src}
+  type="product"
+>
+  <!-- Schema -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(productSchema)} />
+
   <section class="product-detail">
     <div class="container">
       <!-- Breadcrumb -->

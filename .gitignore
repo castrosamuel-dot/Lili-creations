@@ -1,3 +1,6 @@
+# Claude
+.claude/
+
 # build output
 dist/
 

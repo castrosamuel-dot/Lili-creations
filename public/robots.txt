@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lili-s-creations.web.app/sitemap-index.xml

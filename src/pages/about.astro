@@ -2,9 +2,47 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+
+// FAQ Schema for AEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is the jewelry at Lili's Creations made?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every piece is handcrafted by Lili in her studio using traditional metalsmithing techniques including hand-forging, wire-wrapping, and cold-connections. No mass-production or casting is used."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What materials are used in the jewelry?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We use high-quality natural materials including solid copper, .925 sterling silver, and ethically sourced genuine gemstones like labradorite, moonstone, and turquoise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are the copper pieces sealed for sensitive skin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many of our copper pieces are finished with a high-quality jeweler's wax or sealant to protect the finish and minimize skin reaction, though individual sensitivities vary."
+      }
+    }
+  ]
+};
 ---
 
-<Layout title="Meet the Maker — Lili's Creations">
+<Layout 
+  title="Meet the Maker — Artisan Jewelry Handcrafted by Lili" 
+  description="Learn about the story, philosophy, and traditional metalsmithing process behind Lili's Creations. Discover how we transform raw copper and natural stones into one-of-a-kind wearable art."
+>
+  <!-- FAQ Schema -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
   <Hero
     title="Meet the Maker"
     subtitle="The hands, the heart, and the story behind every piece."
@@ -100,8 +138,9 @@ import SectionHeader from '../components/SectionHeader.astro';
           </div>
           <h3>Crafting</h3>
           <p>
-            With hammer, torch, and pliers, raw wire becomes something beautiful.
-            Every bend, every wrap, every polish is done by hand in my studio.
+            With hammer, torch, and pliers, raw wire becomes something beautiful. 
+            I use traditional techniques like hand-forging, soldering, and 
+            oxidized antiquing to create depth and texture in every piece.
           </p>
         </div>
         <div class="process-card animate-on-scroll delay-4">
