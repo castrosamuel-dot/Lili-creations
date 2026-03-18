@@ -25,6 +25,8 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ClientRouter />
+    <!-- PayPal JS SDK — Replace YOUR_CLIENT_ID with your live PayPal Client ID -->
+    <script is:inline src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD&intent=capture" data-sdk-integration-source="button-factory" async></script>
   </head>
   <body>
     <Header />

@@ -1,0 +1,683 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import products from '../../data/products.json';
+
+export function getStaticPaths() {
+  return products.map(product => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+
+const primaryImage = product.images.find((img: any) => img.isPrimary) || product.images[0];
+const relatedProducts = products
+  .filter(p => p.category === product.category && p.id !== product.id)
+  .slice(0, 4);
+
+const descriptionParagraphs = product.description.split('\n\n');
+---
+
+<Layout title={`${product.name} — Lili's Creations`} description={product.shortDescription}>
+  <section class="product-detail">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb animate-on-scroll" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb__sep">/</span>
+        <a href="/collection">Collection</a>
+        <span class="breadcrumb__sep">/</span>
+        <span>{product.name}</span>
+      </nav>
+
+      <div class="product-layout">
+        <!-- Image Gallery -->
+        <div class="gallery animate-on-scroll">
+          <!-- Main Image -->
+          <div class="gallery__main" id="gallery-main">
+            <img
+              src={primaryImage.src}
+              alt={primaryImage.alt}
+              class="gallery__main-image"
+              id="main-image"
+              loading="eager"
+            />
+            {product.tags.length > 0 && (
+              <div class="gallery__tags">
+                {product.tags.map((tag: string) => (
+                  <span class="gallery__tag">{tag}</span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <!-- Thumbnails -->
+          {product.images.length > 1 && (
+            <div class="gallery__thumbs">
+              {product.images.map((img: any, i: number) => (
+                <button
+                  class:list={['gallery__thumb', { active: img.isPrimary || (!product.images.some((im: any) => im.isPrimary) && i === 0) }]}
+                  data-src={img.src}
+                  data-alt={img.alt}
+                  aria-label={`View image ${i + 1}`}
+                >
+                  <img src={img.src} alt={img.alt} loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info animate-on-scroll delay-2">
+          <span class="product-info__category">{product.category}</span>
+          <h1 class="product-info__name">{product.name}</h1>
+          <p class="product-info__price">${product.price.toFixed(2)}</p>
+
+          {!product.inStock && !product.madeToOrder && (
+            <p class="product-info__status product-info__status--sold">Currently in the Making</p>
+          )}
+          {product.madeToOrder && (
+            <p class="product-info__status product-info__status--mto">Made Just for You — 2-3 weeks</p>
+          )}
+
+          <!-- Description -->
+          <div class="product-info__description">
+            {descriptionParagraphs.map((para: string) => (
+              <p>{para}</p>
+            ))}
+          </div>
+
+          <!-- Materials -->
+          <div class="product-info__section">
+            <h3 class="product-info__section-title">Materials</h3>
+            <ul class="product-info__materials">
+              {product.materials.map((mat: string) => (
+                <li>{mat}</li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Dimensions -->
+          {product.dimensions && (
+            <div class="product-info__section">
+              <h3 class="product-info__section-title">The Details</h3>
+              <dl class="product-info__dimensions">
+                {Object.entries(product.dimensions).map(([key, value]) => (
+                  <>
+                    <dt>{key.replace(/([A-Z])/g, ' $1').replace(/^./, (s: string) => s.toUpperCase())}</dt>
+                    <dd>{value as string}</dd>
+                  </>
+                ))}
+              </dl>
+            </div>
+          )}
+
+          <!-- Quantity + PayPal -->
+          {product.inStock && (
+            <div class="product-info__purchase">
+              <div class="product-info__quantity">
+                <label for="quantity" class="product-info__qty-label">Quantity</label>
+                <div class="qty-selector">
+                  <button class="qty-btn" id="qty-minus" aria-label="Decrease quantity">-</button>
+                  <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" class="qty-input" />
+                  <button class="qty-btn" id="qty-plus" aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+
+              <!-- PayPal Button Container -->
+              <div id="paypal-button-container" class="paypal-container"></div>
+
+              <p class="product-info__paypal-note">
+                Secure checkout powered by PayPal. Credit & debit cards accepted.
+              </p>
+            </div>
+          )}
+
+          {!product.inStock && (
+            <div class="product-info__purchase">
+              <a href="/custom" class="btn btn--primary btn--full">Inquire About This Piece</a>
+            </div>
+          )}
+
+          <!-- Care -->
+          {product.careInstructions && (
+            <details class="product-info__care">
+              <summary>Care Instructions</summary>
+              <p>{product.careInstructions}</p>
+            </details>
+          )}
+
+          <!-- Unique note -->
+          <p class="product-info__note">
+            <em>Each piece is handcrafted individually — your piece may vary slightly from the photos, and that's part of its charm.</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products -->
+  {relatedProducts.length > 0 && (
+    <section class="section section--surface">
+      <div class="container">
+        <div class="section-header text-center animate-on-scroll">
+          <h2>You Might Also Love</h2>
+          <div class="divider"><span class="divider__icon">&loz;</span></div>
+        </div>
+        <div class="related-grid">
+          {relatedProducts.map((rp, i) => (
+            <div class={`animate-on-scroll delay-${i + 1}`}>
+              <ProductCard
+                name={rp.name}
+                price={`$${rp.price}`}
+                image={rp.images.find((img: any) => img.isPrimary)?.src || rp.images[0].src}
+                hoverImage={rp.images[1]?.src}
+                materials={rp.materials.join(', ')}
+                tag={rp.tags[0]}
+                href={`/collection/${rp.slug}`}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</Layout>
+
+<style>
+  .product-detail {
+    padding-top: calc(var(--header-height) + var(--space-lg));
+    padding-bottom: var(--space-2xl);
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    margin-bottom: var(--space-lg);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-light);
+    transition: color var(--transition-base);
+  }
+
+  .breadcrumb a:hover { color: var(--color-primary); }
+
+  .breadcrumb__sep {
+    margin: 0 0.5rem;
+    opacity: 0.4;
+  }
+
+  /* Product Layout */
+  .product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  /* Gallery */
+  .gallery__main {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-surface);
+    cursor: zoom-in;
+  }
+
+  .gallery__main-image {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease-elegant);
+  }
+
+  .gallery__main:hover .gallery__main-image {
+    transform: scale(1.05);
+  }
+
+  .gallery__tags {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .gallery__tag {
+    padding: 0.3rem 0.8rem;
+    background: var(--color-white);
+    color: var(--color-primary);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .gallery__thumbs {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+  }
+
+  .gallery__thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+    transition: all var(--transition-base);
+    opacity: 0.6;
+  }
+
+  .gallery__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gallery__thumb:hover,
+  .gallery__thumb.active {
+    border-color: var(--color-primary);
+    opacity: 1;
+  }
+
+  /* Product Info */
+  .product-info__category {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .product-info__name {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-info__price {
+    font-family: var(--font-body);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+  }
+
+  .product-info__status {
+    font-size: 0.85rem;
+    font-weight: 400;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+    margin-bottom: var(--space-md);
+  }
+
+  .product-info__status--sold {
+    background: rgba(201, 169, 166, 0.15);
+    color: var(--color-accent);
+  }
+
+  .product-info__status--mto {
+    background: rgba(163, 177, 138, 0.15);
+    color: var(--color-secondary);
+  }
+
+  .product-info__description {
+    margin-bottom: var(--space-lg);
+  }
+
+  .product-info__description p {
+    margin-bottom: var(--space-sm);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+  }
+
+  .product-info__section {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .product-info__section-title {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .product-info__materials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .product-info__materials li {
+    padding: 0.3rem 0.8rem;
+    background: var(--color-surface);
+    border-radius: 20px;
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+  }
+
+  .product-info__dimensions {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.3rem 1rem;
+    font-size: 0.88rem;
+  }
+
+  .product-info__dimensions dt {
+    color: var(--color-text-light);
+    font-weight: 300;
+  }
+
+  .product-info__dimensions dd {
+    color: var(--color-text);
+  }
+
+  /* Purchase */
+  .product-info__purchase {
+    margin: var(--space-md) 0;
+  }
+
+  .product-info__quantity {
+    margin-bottom: var(--space-sm);
+  }
+
+  .product-info__qty-label {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .qty-selector {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .qty-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--color-text);
+    background: var(--color-surface);
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+
+  .qty-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .qty-input {
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    background: var(--color-white);
+    -moz-appearance: textfield;
+  }
+
+  .qty-input::-webkit-inner-spin-button,
+  .qty-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .paypal-container {
+    min-height: 55px;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-info__paypal-note {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .btn--full {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Care */
+  .product-info__care {
+    margin: var(--space-md) 0;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  .product-info__care summary {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 0.3rem 0;
+  }
+
+  .product-info__care p {
+    font-size: 0.88rem;
+    margin-top: 0.5rem;
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+
+  .product-info__note {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Related */
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 900px) {
+    .product-layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    .related-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .related-grid {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+    .gallery__thumbs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+</style>
+
+<script define:vars={{ productName: product.name, productPrice: product.price, productId: product.id }}>
+  // --- Thumbnail Gallery ---
+  function initGallery() {
+    const mainImage = document.getElementById('main-image');
+    const thumbs = document.querySelectorAll('.gallery__thumb');
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        const src = thumb.dataset.src;
+        const alt = thumb.dataset.alt;
+        if (mainImage && src) {
+          mainImage.src = src;
+          mainImage.alt = alt || '';
+        }
+        thumbs.forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+      });
+    });
+  }
+
+  // --- Quantity Selector ---
+  function initQuantity() {
+    const minus = document.getElementById('qty-minus');
+    const plus = document.getElementById('qty-plus');
+    const input = document.getElementById('quantity');
+
+    minus?.addEventListener('click', () => {
+      if (input) {
+        const val = parseInt(input.value) || 1;
+        input.value = String(Math.max(1, val - 1));
+      }
+    });
+
+    plus?.addEventListener('click', () => {
+      if (input) {
+        const val = parseInt(input.value) || 1;
+        input.value = String(Math.min(10, val + 1));
+      }
+    });
+  }
+
+  initGallery();
+  initQuantity();
+  document.addEventListener('astro:after-swap', () => {
+    initGallery();
+    initQuantity();
+  });
+</script>
+
+<!-- PayPal SDK — Replace YOUR_CLIENT_ID with your PayPal Client ID -->
+<script is:inline define:vars={{ productName: product.name, productPrice: product.price, productId: product.id }}>
+  // Only load PayPal if the container exists (product is in stock)
+  function initPayPal() {
+    const container = document.getElementById('paypal-button-container');
+    if (!container || container.children.length > 0) return;
+
+    // Check if PayPal SDK is loaded
+    if (typeof paypal === 'undefined') {
+      // SDK not loaded yet — show fallback
+      container.innerHTML = `
+        <a href="/contact" class="btn btn--primary" style="width:100%;text-align:center;display:block;">
+          Inquire to Purchase
+        </a>
+      `;
+      return;
+    }
+
+    paypal.Buttons({
+      style: {
+        shape: 'pill',
+        color: 'gold',
+        layout: 'vertical',
+        label: 'buynow',
+      },
+      createOrder: function(data, actions) {
+        const qty = parseInt(document.getElementById('quantity')?.value) || 1;
+        return actions.order.create({
+          purchase_units: [{
+            description: productName,
+            custom_id: productId,
+            amount: {
+              currency_code: 'USD',
+              value: (productPrice * qty).toFixed(2),
+              breakdown: {
+                item_total: {
+                  currency_code: 'USD',
+                  value: (productPrice * qty).toFixed(2)
+                }
+              }
+            },
+            items: [{
+              name: productName,
+              unit_amount: {
+                currency_code: 'USD',
+                value: productPrice.toFixed(2)
+              },
+              quantity: String(qty)
+            }]
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          const container = document.getElementById('paypal-button-container');
+          if (container) {
+            container.innerHTML = `
+              <div style="text-align:center;padding:1.5rem;background:#f0f7f0;border-radius:12px;border:1px solid #A3B18A;">
+                <p style="font-family:'Cormorant',serif;font-size:1.3rem;color:#3D3630;margin-bottom:0.5rem;">
+                  Thank you, ${details.payer.name.given_name}!
+                </p>
+                <p style="font-size:0.9rem;color:#8A7F72;">
+                  Your order has been placed. A confirmation email is on its way.
+                </p>
+              </div>
+            `;
+          }
+        });
+      },
+      onError: function(err) {
+        console.error('PayPal error:', err);
+        const container = document.getElementById('paypal-button-container');
+        if (container) {
+          container.innerHTML = `
+            <div style="text-align:center;padding:1rem;background:#fdf0f0;border-radius:12px;border:1px solid #C9A9A6;">
+              <p style="font-size:0.9rem;color:#3D3630;">
+                Something went wrong with payment. Please try again or <a href="/contact">contact us</a>.
+              </p>
+            </div>
+          `;
+        }
+      }
+    }).render('#paypal-button-container');
+  }
+
+  // Initialize on load and after view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPayPal);
+  } else {
+    initPayPal();
+  }
+  document.addEventListener('astro:after-swap', initPayPal);
+</script>

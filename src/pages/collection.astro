@@ -2,23 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import ProductCard from '../components/ProductCard.astro';
+import products from '../data/products.json';
 
-const categories = ['All', 'Necklaces', 'Rings', 'Earrings', 'Bracelets'];
-
-const products = [
-  { name: 'Moonlit Labradorite Drop', price: '$85', image: '/images/placeholder-necklace.svg', materials: 'Labradorite, antiqued copper', tag: 'One of a Kind', category: 'Necklaces' },
-  { name: 'Willow Wrap Ring', price: '$62', image: '/images/placeholder-ring.svg', materials: 'Sterling silver, freshwater pearl', category: 'Rings' },
-  { name: 'Morning Dew Hoops', price: '$48', image: '/images/placeholder-earrings.svg', materials: 'Gold-fill, green aventurine', tag: 'Bestseller', category: 'Earrings' },
-  { name: 'River Stone Cuff', price: '$95', image: '/images/placeholder-bracelet.svg', materials: 'Brass, jasper, hand-hammered', category: 'Bracelets' },
-  { name: 'Fern Frond Pendant', price: '$72', image: '/images/placeholder-necklace.svg', materials: 'Sterling silver, pressed fern', category: 'Necklaces' },
-  { name: 'Honeycomb Studs', price: '$38', image: '/images/placeholder-earrings.svg', materials: 'Gold-fill, hand-stamped', category: 'Earrings' },
-  { name: 'Twisted Vine Band', price: '$55', image: '/images/placeholder-ring.svg', materials: 'Sterling silver, oxidized', category: 'Rings' },
-  { name: 'Pebble Stack Bangles', price: '$78', image: '/images/placeholder-bracelet.svg', materials: 'Brass, beach pebble', tag: 'New', category: 'Bracelets' },
-  { name: 'Amber Glow Drops', price: '$65', image: '/images/placeholder-earrings.svg', materials: 'Gold-fill, amber resin', category: 'Earrings' },
-  { name: 'Moss Agate Ring', price: '$70', image: '/images/placeholder-ring.svg', materials: 'Sterling silver, moss agate', tag: 'One of a Kind', category: 'Rings' },
-  { name: 'Sage Leaf Lariat', price: '$88', image: '/images/placeholder-necklace.svg', materials: 'Gold-fill, carved jade', category: 'Necklaces' },
-  { name: 'Meadow Chain Bracelet', price: '$52', image: '/images/placeholder-bracelet.svg', materials: 'Sterling silver, peridot', category: 'Bracelets' },
-];
+const categorySet = [...new Set(products.map(p => p.category))];
+const categories = ['All', ...categorySet.sort()];
 ---
 
 <Layout title="Browse the Collection — Lili's Creations">
@@ -50,11 +37,12 @@ const products = [
           <div class={`product-grid__item delay-${(i % 4) + 1}`} data-category={product.category.toLowerCase()}>
             <ProductCard
               name={product.name}
-              price={product.price}
-              image={product.image}
-              materials={product.materials}
-              tag={product.tag}
-              href="#"
+              price={`$${product.price}`}
+              image={product.images.find(img => img.isPrimary)?.src || product.images[0].src}
+              hoverImage={product.images[1]?.src}
+              materials={product.materials.join(', ')}
+              tag={product.tags[0]}
+              href={`/collection/${product.slug}`}
             />
           </div>
         ))}

@@ -3,35 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import ProductCard from '../components/ProductCard.astro';
+import allProducts from '../data/products.json';
 
-const featuredPieces = [
-  {
-    name: 'Moonlit Labradorite Drop',
-    price: '$85',
-    image: '/images/placeholder-necklace.svg',
-    materials: 'Labradorite, antiqued copper',
-    tag: 'One of a Kind',
-  },
-  {
-    name: 'Willow Wrap Ring',
-    price: '$62',
-    image: '/images/placeholder-ring.svg',
-    materials: 'Sterling silver, freshwater pearl',
-  },
-  {
-    name: 'Morning Dew Hoops',
-    price: '$48',
-    image: '/images/placeholder-earrings.svg',
-    materials: 'Gold-fill, green aventurine',
-    tag: 'Bestseller',
-  },
-  {
-    name: 'River Stone Cuff',
-    price: '$95',
-    image: '/images/placeholder-bracelet.svg',
-    materials: 'Brass, jasper, hand-hammered',
-  },
-];
+const featuredPieces = allProducts.filter(p => p.featured);
 
 const testimonials = [
   {
@@ -74,7 +48,15 @@ const testimonials = [
       <div class="featured-grid">
         {featuredPieces.map((piece, i) => (
           <div class={`delay-${i + 1}`}>
-            <ProductCard {...piece} href="/collection" />
+            <ProductCard
+              name={piece.name}
+              price={`$${piece.price}`}
+              image={piece.images.find(img => img.isPrimary)?.src || piece.images[0].src}
+              hoverImage={piece.images[1]?.src}
+              materials={piece.materials.join(', ')}
+              tag={piece.tags[0]}
+              href={`/collection/${piece.slug}`}
+            />
           </div>
         ))}
       </div>
@@ -90,7 +72,7 @@ const testimonials = [
     <div class="container">
       <div class="story-teaser">
         <div class="story-teaser__image animate-on-scroll">
-          <img src="/images/placeholder-maker.svg" alt="Lili at work in her studio" loading="lazy" />
+          <img src="/images/working31.webp" alt="Lili at work in her studio" loading="lazy" />
         </div>
         <div class="story-teaser__content animate-on-scroll delay-2">
           <span class="story-teaser__label">The Maker</span>
