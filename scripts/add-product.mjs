@@ -3,16 +3,26 @@
 /**
  * Lili's Creations — Add Product CLI
  *
- * Usage:
- *   1. Drop product images into the /inbox folder
+ * Supports two modes:
+ *
+ * SINGLE MODE (loose images):
+ *   1. Drop product images directly into /inbox
  *   2. Run: npm run add-product
- *   3. Answer the prompts
- *   4. The script will:
- *      - Convert & optimize images to .webp (1200x1500, 82% quality)
- *      - Move them to public/images/products/{slug}/
- *      - Generate alt text from filenames
- *      - Add the product entry to src/data/products.json
- *      - Optionally build & deploy
+ *
+ * BATCH MODE (subfolders):
+ *   1. Create a subfolder per product in /inbox:
+ *      inbox/sunrise-hoops/01-front.jpg, 02-side.jpg ...
+ *      inbox/river-stone-ring/01-front.jpg, 02-worn.jpg ...
+ *   2. Run: npm run add-product
+ *   3. The script detects folders and processes each product in sequence.
+ *      Folder name becomes the suggested product name.
+ *
+ * The script will:
+ *   - Convert & optimize images to .webp (1200x1500, 82% quality)
+ *   - Move them to public/images/products/{slug}/
+ *   - Generate alt text from filenames
+ *   - Add the product entry to src/data/products.json
+ *   - Optionally build & deploy after all products are added
  */
 
 import fs from 'fs';
@@ -42,21 +52,40 @@ function slugify(text) {
     .replace(/^-|-$/g, '');
 }
 
-function humanize(filename) {
-  const name = path.parse(filename).name;
-  return name
+function humanize(text) {
+  return text
     .replace(/[-_]/g, ' ')
     .replace(/\b\w/g, c => c.toUpperCase())
-    .replace(/^\d+\s*/, ''); // remove leading numbers used for ordering
+    .replace(/^\d+\s*/, '');
 }
 
 function hr() {
   console.log('\n' + '─'.repeat(50) + '\n');
 }
 
+function getImageFiles(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir)
+    .filter(f => {
+      const full = path.join(dir, f);
+      return fs.statSync(full).isFile() && IMAGE_EXTENSIONS.includes(path.extname(f).toLowerCase());
+    })
+    .sort();
+}
+
+function getSubfolders(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir)
+    .filter(f => {
+      const full = path.join(dir, f);
+      return fs.statSync(full).isDirectory() && f !== '.gitkeep';
+    })
+    .sort();
+}
+
 // ─── Image Processing ───
 
-async function processImages(slug, imageFiles) {
+async function processImages(slug, imageFiles, sourceDir) {
   const outputDir = path.join(PUBLIC_IMAGES, slug);
   fs.mkdirSync(outputDir, { recursive: true });
 
@@ -64,14 +93,12 @@ async function processImages(slug, imageFiles) {
 
   for (let i = 0; i < imageFiles.length; i++) {
     const file = imageFiles[i];
-    const ext = path.extname(file).toLowerCase();
     const baseName = path.parse(file).name;
 
-    // Generate output filename
     const suffix = i === 0 ? 'primary' : baseName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     const outName = `${slug}-${suffix}.webp`;
     const outPath = path.join(outputDir, outName);
-    const srcPath = path.join(INBOX, file);
+    const srcPath = path.join(sourceDir, file);
 
     console.log(`  Converting: ${file} → ${outName}`);
 
@@ -121,10 +148,10 @@ function promptNumber(label, defaultVal) {
 function promptChoice(label, options) {
   console.log(`\n  ${label}:`);
   options.forEach((opt, i) => console.log(`    ${i + 1}. ${opt}`));
-  const idx = readlineSync.questionInt('  Choose (number): ', { limitMessage: '' }) - 1;
+  const answer = readlineSync.question('  Choose (number, or type custom): ');
+  const idx = parseInt(answer) - 1;
   if (idx >= 0 && idx < options.length) return options[idx];
-  // Allow custom entry
-  return prompt('  Or type a custom value');
+  return answer.trim() || options[0];
 }
 
 function promptMulti(label, options) {
@@ -146,46 +173,23 @@ function promptYN(label, defaultYes = false) {
   return answer === 'y' || answer === 'yes';
 }
 
-// ─── Main ───
+// ─── Process One Product ───
 
-async function main() {
-  console.log('\n');
-  console.log("  ✦  Lili's Creations — Add New Product");
-  console.log('  ✦  Drop images in /inbox, then answer the prompts below.');
-  hr();
+async function processOneProduct(imageFiles, sourceDir, suggestedName, productIndex, totalProducts) {
+  const batchLabel = totalProducts > 1 ? ` (${productIndex}/${totalProducts})` : '';
 
-  // Check inbox
-  if (!fs.existsSync(INBOX)) {
-    fs.mkdirSync(INBOX, { recursive: true });
-  }
+  console.log(`  PRODUCT DETAILS${batchLabel}\n`);
 
-  const inboxFiles = fs.readdirSync(INBOX)
-    .filter(f => IMAGE_EXTENSIONS.includes(path.extname(f).toLowerCase()))
-    .sort();
-
-  if (inboxFiles.length === 0) {
-    console.log('  No images found in /inbox folder.');
-    console.log('  Please add product images (.jpg, .png, .webp) to the inbox/ folder and try again.');
-    console.log('  Tip: Name them in the order you want (01-front.jpg, 02-side.jpg, etc.)');
-    process.exit(1);
-  }
-
-  console.log(`  Found ${inboxFiles.length} image(s) in /inbox:`);
-  inboxFiles.forEach((f, i) => {
-    const marker = i === 0 ? ' ← will be PRIMARY' : '';
+  // Show images
+  console.log(`  Found ${imageFiles.length} image(s):`);
+  imageFiles.forEach((f, i) => {
+    const marker = i === 0 ? ' ← PRIMARY' : '';
     console.log(`    ${i + 1}. ${f}${marker}`);
   });
-  console.log('\n  (First image becomes the primary/hero image.)');
-  console.log('  (Tip: rename files to control order before running this script.)');
+  console.log('');
 
-  hr();
-
-  // ─── Product Details ───
-
-  console.log('  PRODUCT DETAILS\n');
-
-  const name = prompt('Product name (e.g., "Sunrise Hoops")');
-  if (!name) { console.log('  Name is required.'); process.exit(1); }
+  const name = prompt('Product name', suggestedName);
+  if (!name) { console.log('  Name is required. Skipping.'); return null; }
 
   const slug = slugify(name);
   console.log(`  → Slug: ${slug}`);
@@ -198,7 +202,7 @@ async function main() {
   hr();
   console.log('  MATERIALS & DESCRIPTION\n');
 
-  const materialsRaw = prompt('Materials (comma-separated, e.g., "Sterling silver, Labradorite")');
+  const materialsRaw = prompt('Materials (comma-separated)', '');
   const materials = materialsRaw.split(',').map(m => m.trim()).filter(Boolean);
 
   console.log('\n  Write the full description (2-3 sentences per paragraph).');
@@ -241,24 +245,20 @@ async function main() {
   const featured = promptYN('Featured on home page?', false);
   const isNew = promptYN('Mark as "New"?', true);
 
-  // Auto-add "New" tag if marked new and not already tagged
   if (isNew && !tags.includes('New')) tags.push('New');
   if (featured && !tags.includes('Featured')) tags.push('Featured');
 
   hr();
   console.log('  PROCESSING IMAGES...\n');
 
-  const images = await processImages(slug, inboxFiles);
+  const images = await processImages(slug, imageFiles, sourceDir);
 
   if (images.length === 0) {
-    console.log('  No images were processed successfully. Aborting.');
-    process.exit(1);
+    console.log('  No images were processed successfully. Skipping this product.');
+    return null;
   }
 
-  hr();
-
-  // ─── Build product object ───
-
+  // Build product object
   const product = {
     id: slug,
     slug,
@@ -283,38 +283,187 @@ async function main() {
     if (product[key] === undefined) delete product[key];
   });
 
-  // ─── Write to products.json ───
+  return product;
+}
 
-  console.log('  SAVING TO PRODUCTS.JSON...\n');
+// ─── Save Products ───
 
+function saveProducts(newProducts) {
   const existing = JSON.parse(fs.readFileSync(PRODUCTS_JSON, 'utf-8'));
 
-  // Check for duplicate
-  if (existing.find(p => p.id === slug)) {
-    console.log(`  ⚠ A product with slug "${slug}" already exists!`);
-    if (!promptYN('Overwrite it?', false)) {
-      console.log('  Aborted.');
-      process.exit(0);
+  for (const product of newProducts) {
+    const dupeIdx = existing.findIndex(p => p.id === product.id);
+    if (dupeIdx >= 0) {
+      console.log(`  ⚠ "${product.name}" already exists — overwriting.`);
+      existing[dupeIdx] = product;
+    } else {
+      existing.push(product);
     }
-    const idx = existing.findIndex(p => p.id === slug);
-    existing[idx] = product;
-  } else {
-    existing.push(product);
   }
 
   fs.writeFileSync(PRODUCTS_JSON, JSON.stringify(existing, null, 2) + '\n');
-  console.log(`  ✓ Product "${name}" saved! (${existing.length} total products)\n`);
+  return existing.length;
+}
+
+// ─── Clean Up ───
+
+function cleanInbox(subfolders, looseFiles) {
+  // Remove processed subfolders
+  for (const folder of subfolders) {
+    const fullPath = path.join(INBOX, folder);
+    fs.rmSync(fullPath, { recursive: true, force: true });
+  }
+  // Remove loose files
+  for (const file of looseFiles) {
+    fs.unlinkSync(path.join(INBOX, file));
+  }
+}
+
+// ─── Main ───
+
+async function main() {
+  console.log('\n');
+  console.log("  ✦  Lili's Creations — Add Product CLI");
+  hr();
+
+  if (!fs.existsSync(INBOX)) {
+    fs.mkdirSync(INBOX, { recursive: true });
+  }
+
+  // Detect mode: subfolders (batch) or loose files (single)
+  const subfolders = getSubfolders(INBOX);
+  const looseFiles = getImageFiles(INBOX);
+
+  if (subfolders.length === 0 && looseFiles.length === 0) {
+    console.log('  No images found in /inbox.');
+    console.log('');
+    console.log('  SINGLE PRODUCT:');
+    console.log('    Drop images directly into inbox/');
+    console.log('    (01-front.jpg, 02-side.jpg, 03-detail.jpg)');
+    console.log('');
+    console.log('  BATCH (multiple products):');
+    console.log('    Create a subfolder per product in inbox/');
+    console.log('    inbox/sunrise-hoops/01-front.jpg, 02-side.jpg');
+    console.log('    inbox/cedar-pendant/01-front.jpg, 02-detail.jpg');
+    console.log('');
+    process.exit(1);
+  }
+
+  // Determine what we're processing
+  const batches = []; // { name, imageFiles, sourceDir }
+
+  if (subfolders.length > 0) {
+    // ─── BATCH MODE ───
+    console.log(`  BATCH MODE: Found ${subfolders.length} product folder(s)\n`);
+
+    for (const folder of subfolders) {
+      const folderPath = path.join(INBOX, folder);
+      const images = getImageFiles(folderPath);
+      if (images.length === 0) {
+        console.log(`  ⚠ Skipping "${folder}" — no images found`);
+        continue;
+      }
+      console.log(`    📁 ${folder}/ (${images.length} images)`);
+      batches.push({
+        suggestedName: humanize(folder),
+        imageFiles: images,
+        sourceDir: folderPath,
+      });
+    }
+
+    // Also pick up loose files as one more product if present
+    if (looseFiles.length > 0) {
+      console.log(`    📄 ${looseFiles.length} loose image(s) in inbox root`);
+      batches.push({
+        suggestedName: '',
+        imageFiles: looseFiles,
+        sourceDir: INBOX,
+      });
+    }
+
+    console.log(`\n  Total: ${batches.length} product(s) to add.`);
+
+  } else {
+    // ─── SINGLE MODE ───
+    console.log(`  SINGLE MODE: Found ${looseFiles.length} image(s) in /inbox\n`);
+    looseFiles.forEach((f, i) => {
+      const marker = i === 0 ? ' ← PRIMARY' : '';
+      console.log(`    ${i + 1}. ${f}${marker}`);
+    });
+    console.log('\n  (First image becomes the primary. Rename files to control order.)');
+
+    batches.push({
+      suggestedName: '',
+      imageFiles: looseFiles,
+      sourceDir: INBOX,
+    });
+  }
+
+  hr();
+
+  // ─── Process each product ───
+
+  const addedProducts = [];
+  const total = batches.length;
+
+  for (let i = 0; i < batches.length; i++) {
+    const batch = batches[i];
+
+    if (total > 1) {
+      console.log(`  ━━━ Product ${i + 1} of ${total} ━━━\n`);
+    }
+
+    const product = await processOneProduct(
+      batch.imageFiles,
+      batch.sourceDir,
+      batch.suggestedName,
+      i + 1,
+      total
+    );
+
+    if (product) {
+      addedProducts.push(product);
+      console.log(`  ✓ "${product.name}" ready!\n`);
+    }
+
+    if (i < batches.length - 1) {
+      hr();
+      if (!promptYN('Continue to next product?', true)) {
+        console.log('  Stopping batch. Products completed so far will be saved.');
+        break;
+      }
+      hr();
+    }
+  }
+
+  if (addedProducts.length === 0) {
+    console.log('  No products were added.');
+    process.exit(0);
+  }
+
+  // ─── Save all products ───
+
+  hr();
+  console.log('  SAVING PRODUCTS...\n');
+
+  const totalCount = saveProducts(addedProducts);
+
+  console.log(`  ✓ ${addedProducts.length} product(s) saved! (${totalCount} total in catalog)\n`);
+
+  addedProducts.forEach(p => {
+    console.log(`    • ${p.name} → /collection/${p.slug}`);
+  });
 
   // ─── Clean inbox ───
 
+  hr();
+
   if (promptYN('Clear processed images from /inbox?', true)) {
-    inboxFiles.forEach(f => fs.unlinkSync(path.join(INBOX, f)));
+    cleanInbox(subfolders, looseFiles);
     console.log('  ✓ Inbox cleared.\n');
   }
 
   // ─── Build & Deploy ───
-
-  hr();
 
   if (promptYN('Build and deploy now?', true)) {
     console.log('\n  Building site...\n');
@@ -323,19 +472,21 @@ async function main() {
       execSync('npx astro build', { cwd: ROOT, stdio: 'inherit' });
       console.log('\n  Deploying to Firebase...\n');
       execSync('firebase deploy --only hosting', { cwd: ROOT, stdio: 'inherit' });
-      console.log(`\n  ✓ Live at: https://lili-s-creations.web.app/collection/${slug}`);
+      console.log('\n  ✓ Deployed! New product pages:');
+      addedProducts.forEach(p => {
+        console.log(`    https://lili-s-creations.web.app/collection/${p.slug}`);
+      });
     } catch (err) {
-      console.error('\n  ✗ Build/deploy failed. You can run manually:');
-      console.log('    npm run build && firebase deploy --only hosting');
+      console.error('\n  ✗ Build/deploy failed. Run manually:');
+      console.log('    npm run deploy');
     }
   } else {
     console.log('\n  To deploy later, run:');
-    console.log('    npm run build && firebase deploy --only hosting');
+    console.log('    npm run deploy');
   }
 
   hr();
-  console.log(`  ✦ All done! "${name}" is ready.`);
-  console.log(`  ✦ Product page: /collection/${slug}`);
+  console.log(`  ✦ All done! ${addedProducts.length} product(s) added.`);
   console.log('');
 }
 
