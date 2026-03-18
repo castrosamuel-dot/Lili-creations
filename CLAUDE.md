@@ -84,8 +84,8 @@ Astro reads this file at build time and generates:
 ```bash
 npm run dev              # Dev server at localhost:4321
 npm run build            # Build static site to dist/
-firebase deploy --only hosting  # Deploy to Firebase
-npm run build && firebase deploy --only hosting  # Build + deploy
+npm run deploy           # Build + deploy to Firebase (one command)
+npm run add-product      # Interactive CLI to add a new product (images → prompts → deploy)
 ```
 
 ## PayPal Integration
@@ -108,10 +108,16 @@ npm run build && firebase deploy --only hosting  # Build + deploy
 
 ## Common Tasks
 
-### Add a new product
-1. Add images to `public/images/products/`
+### Add a new product (automated)
+1. Drop images into the `inbox/` folder (name them 01-front.jpg, 02-side.jpg, etc.)
+2. Run `npm run add-product`
+3. Answer the prompts — images are auto-converted to .webp, resized, and added to products.json
+4. The script offers to build and deploy automatically
+
+### Add a new product (manual)
+1. Add images to `public/images/products/{slug}/`
 2. Add object to `src/data/products.json`
-3. `npm run build && firebase deploy --only hosting`
+3. `npm run deploy`
 
 ### Change the color palette
 Edit CSS custom properties in `src/styles/global.css` under `:root`
@@ -129,7 +135,7 @@ Edit the `<Hero>` component props in the relevant page file
 Check that image paths in `products.json` match actual files in `public/images/`
 
 ### Deploy after any change
-Always: `npm run build && firebase deploy --only hosting`
+Always: `npm run deploy`
 
 ## Important Notes
 

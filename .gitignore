@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# inbox images (temporary staging for add-product script)
+inbox/*
+!inbox/.gitkeep
+
+# firebase
+.firebase/

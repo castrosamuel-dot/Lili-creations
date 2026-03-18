@@ -4,20 +4,38 @@ A step-by-step guide for adding, updating, and managing products on the site.
 
 ---
 
-## How the System Works
+## Quick Way: Automated CLI (Recommended)
 
-All products live in a single file:
+The fastest way to add a product:
 
+```bash
+# 1. Drop your product photos into the inbox/ folder
+#    Name them in order: 01-front.jpg, 02-side.jpg, 03-detail.jpg, 04-worn.jpg
+
+# 2. Run the add-product script
+npm run add-product
+
+# 3. Answer the prompts (name, price, category, materials, description)
+#    The script handles everything else:
+#    - Converts images to optimized .webp (1200x1500, 82% quality)
+#    - Moves them to public/images/products/{slug}/
+#    - Generates the JSON entry in products.json
+#    - Optionally builds and deploys to Firebase
 ```
-src/data/products.json
-```
 
-When the site builds, Astro reads this file and generates:
-- A card for each product on the **Collection** page
-- A dedicated **product detail page** at `/collection/{slug}`
-- Featured products on the **Home** page (filtered by the `featured` flag)
+**That's it.** The script walks you through each field, provides smart defaults, and handles all the technical work. Images of any format (.jpg, .png, .webp, .tiff) are accepted — they'll be converted and optimized automatically.
 
-There is no database. To add or change a product, you edit the JSON file, add images, and rebuild.
+### Tips for the CLI
+- **Image order matters:** First image becomes the primary/hero. Name files with number prefixes (01-, 02-, etc.) to control order.
+- **3-5 images is ideal:** front, alternate angle, detail/macro, and lifestyle/worn shot.
+- **You can skip optional fields** by pressing Enter to accept defaults.
+- **Duplicate detection:** If a product with the same name already exists, you'll be asked whether to overwrite.
+
+---
+
+## Manual Way: Edit JSON Directly
+
+If you prefer full control or need to edit existing products, follow the manual steps below.
 
 ---
 
