@@ -3,17 +3,37 @@
     "id": "moonlit-labradorite-drop",
     "slug": "moonlit-labradorite-drop",
     "name": "Moonlit Labradorite Drop",
-    "price": 85.00,
+    "price": 85,
     "description": "A flash of northern lights, captured in stone and cradled in hand-wrapped copper wire. This pendant features a genuine labradorite cabochon, known for its ethereal blue-green flash, wrapped in antiqued copper wire and suspended from an 18\" copper chain with a handmade clasp.\n\nWear it close to your heart on quiet days. Layer it with longer chains for a gathered, earthy look.",
     "shortDescription": "Ethereal labradorite cabochon wrapped in antiqued copper wire.",
-    "materials": ["Labradorite", "Antiqued copper wire", "Copper chain"],
+    "materials": [
+      "Labradorite",
+      "Antiqued copper wire",
+      "Copper chain"
+    ],
     "category": "Necklaces",
-    "tags": ["One of a Kind", "Featured"],
+    "tags": [
+      "One of a Kind",
+      "Featured"
+    ],
     "images": [
-      { "src": "/images/placeholder-necklace.svg", "alt": "Moonlit Labradorite Drop pendant front view", "isPrimary": true },
-      { "src": "/images/placeholder-necklace.svg", "alt": "Moonlit Labradorite Drop pendant side view" },
-      { "src": "/images/placeholder-necklace.svg", "alt": "Moonlit Labradorite Drop pendant detail of wire wrapping" },
-      { "src": "/images/placeholder-necklace.svg", "alt": "Moonlit Labradorite Drop pendant worn on model" }
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Moonlit Labradorite Drop pendant front view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Moonlit Labradorite Drop pendant side view"
+      },
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Moonlit Labradorite Drop pendant detail of wire wrapping"
+      },
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Moonlit Labradorite Drop pendant worn on model"
+      }
     ],
     "dimensions": {
       "pendant": "1.2\" x 0.8\"",
@@ -29,17 +49,35 @@
     "id": "willow-wrap-ring",
     "slug": "willow-wrap-ring",
     "name": "Willow Wrap Ring",
-    "price": 62.00,
+    "price": 62,
     "description": "Inspired by willow branches bending over still water. This delicate ring is hand-formed from sterling silver wire, wrapped in a flowing organic pattern and finished with a single luminous freshwater pearl.\n\nA piece for the woman who finds beauty in simplicity.",
     "shortDescription": "Hand-formed sterling silver wire ring with freshwater pearl.",
-    "materials": ["Sterling silver (.925)", "Freshwater pearl"],
+    "materials": [
+      "Sterling silver (.925)",
+      "Freshwater pearl"
+    ],
     "category": "Rings",
-    "tags": ["Featured"],
+    "tags": [
+      "Featured"
+    ],
     "images": [
-      { "src": "/images/placeholder-ring.svg", "alt": "Willow Wrap Ring front view", "isPrimary": true },
-      { "src": "/images/placeholder-ring.svg", "alt": "Willow Wrap Ring side profile" },
-      { "src": "/images/placeholder-ring.svg", "alt": "Willow Wrap Ring detail of pearl setting" },
-      { "src": "/images/placeholder-ring.svg", "alt": "Willow Wrap Ring worn on hand" }
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Willow Wrap Ring front view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Willow Wrap Ring side profile"
+      },
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Willow Wrap Ring detail of pearl setting"
+      },
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Willow Wrap Ring worn on hand"
+      }
     ],
     "dimensions": {
       "bandWidth": "2mm",
@@ -55,17 +93,36 @@
     "id": "morning-dew-hoops",
     "slug": "morning-dew-hoops",
     "name": "Morning Dew Hoops",
-    "price": 48.00,
+    "price": 48,
     "description": "Tiny drops of aventurine catching the light like dew on a blade of grass. Hand-formed gold-fill hoops adorned with faceted green aventurine beads. Lightweight and comfortable for all-day wear.\n\nPerfect with a linen blouse, loose hair, and nowhere to rush.",
     "shortDescription": "Gold-fill hoops with faceted green aventurine drops.",
-    "materials": ["14K gold-fill", "Green aventurine"],
+    "materials": [
+      "14K gold-fill",
+      "Green aventurine"
+    ],
     "category": "Earrings",
-    "tags": ["Bestseller", "Featured"],
+    "tags": [
+      "Bestseller",
+      "Featured"
+    ],
     "images": [
-      { "src": "/images/placeholder-earrings.svg", "alt": "Morning Dew Hoops front view", "isPrimary": true },
-      { "src": "/images/placeholder-earrings.svg", "alt": "Morning Dew Hoops side view showing drop" },
-      { "src": "/images/placeholder-earrings.svg", "alt": "Morning Dew Hoops close-up of aventurine beads" },
-      { "src": "/images/placeholder-earrings.svg", "alt": "Morning Dew Hoops worn on model" }
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Morning Dew Hoops front view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Morning Dew Hoops side view showing drop"
+      },
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Morning Dew Hoops close-up of aventurine beads"
+      },
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Morning Dew Hoops worn on model"
+      }
     ],
     "dimensions": {
       "length": "1.5\"",
@@ -81,17 +138,35 @@
     "id": "river-stone-cuff",
     "slug": "river-stone-cuff",
     "name": "River Stone Cuff",
-    "price": 95.00,
+    "price": 95,
     "description": "Heavy, grounding, and beautiful — this hand-hammered brass cuff is set with a smooth jasper cabochon that feels like a river stone warmed by the sun. The hammered texture catches light from every angle.\n\nA statement piece that whispers rather than shouts.",
     "shortDescription": "Hand-hammered brass cuff with jasper cabochon.",
-    "materials": ["Brass", "Jasper cabochon"],
+    "materials": [
+      "Brass",
+      "Jasper cabochon"
+    ],
     "category": "Bracelets",
-    "tags": ["Featured"],
+    "tags": [
+      "Featured"
+    ],
     "images": [
-      { "src": "/images/placeholder-bracelet.svg", "alt": "River Stone Cuff front view", "isPrimary": true },
-      { "src": "/images/placeholder-bracelet.svg", "alt": "River Stone Cuff showing hammered texture detail" },
-      { "src": "/images/placeholder-bracelet.svg", "alt": "River Stone Cuff jasper stone close-up" },
-      { "src": "/images/placeholder-bracelet.svg", "alt": "River Stone Cuff worn on wrist" }
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "River Stone Cuff front view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "River Stone Cuff showing hammered texture detail"
+      },
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "River Stone Cuff jasper stone close-up"
+      },
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "River Stone Cuff worn on wrist"
+      }
     ],
     "dimensions": {
       "width": "0.75\"",
@@ -107,16 +182,32 @@
     "id": "fern-frond-pendant",
     "slug": "fern-frond-pendant",
     "name": "Fern Frond Pendant",
-    "price": 72.00,
+    "price": 72,
     "description": "A real pressed fern frond, preserved and set in sterling silver. Each pendant captures a tiny piece of the forest — no two are exactly alike.\n\nHangs from a delicate 20\" sterling silver chain with a spring ring clasp.",
     "shortDescription": "Real pressed fern preserved in sterling silver.",
-    "materials": ["Sterling silver (.925)", "Pressed fern", "Resin"],
+    "materials": [
+      "Sterling silver (.925)",
+      "Pressed fern",
+      "Resin"
+    ],
     "category": "Necklaces",
-    "tags": ["One of a Kind"],
+    "tags": [
+      "One of a Kind"
+    ],
     "images": [
-      { "src": "/images/placeholder-necklace.svg", "alt": "Fern Frond Pendant front view", "isPrimary": true },
-      { "src": "/images/placeholder-necklace.svg", "alt": "Fern Frond Pendant showing fern detail" },
-      { "src": "/images/placeholder-necklace.svg", "alt": "Fern Frond Pendant back view with hallmark" }
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Fern Frond Pendant front view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Fern Frond Pendant showing fern detail"
+      },
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Fern Frond Pendant back view with hallmark"
+      }
     ],
     "dimensions": {
       "pendant": "1.5\" x 0.7\"",
@@ -132,16 +223,29 @@
     "id": "honeycomb-studs",
     "slug": "honeycomb-studs",
     "name": "Honeycomb Studs",
-    "price": 38.00,
+    "price": 38,
     "description": "Sweet and geometric — these hand-stamped gold-fill studs feature a tiny honeycomb pattern. Each hexagon is individually stamped, so every pair has its own subtle character.\n\nPerfect everyday earrings that add a quiet touch of nature to any look.",
     "shortDescription": "Hand-stamped gold-fill honeycomb pattern studs.",
-    "materials": ["14K gold-fill", "Stainless steel posts"],
+    "materials": [
+      "14K gold-fill",
+      "Stainless steel posts"
+    ],
     "category": "Earrings",
     "tags": [],
     "images": [
-      { "src": "/images/placeholder-earrings.svg", "alt": "Honeycomb Studs front view", "isPrimary": true },
-      { "src": "/images/placeholder-earrings.svg", "alt": "Honeycomb Studs close-up of stamped pattern" },
-      { "src": "/images/placeholder-earrings.svg", "alt": "Honeycomb Studs worn on ear" }
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Honeycomb Studs front view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Honeycomb Studs close-up of stamped pattern"
+      },
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Honeycomb Studs worn on ear"
+      }
     ],
     "dimensions": {
       "diameter": "0.4\"",
@@ -157,16 +261,29 @@
     "id": "twisted-vine-band",
     "slug": "twisted-vine-band",
     "name": "Twisted Vine Band",
-    "price": 55.00,
+    "price": 55,
     "description": "Two strands of sterling silver wire, twisted together like creeping vines on a garden wall. Oxidized to reveal the beautiful dark contrast in the grooves, then polished on the high points to catch the light.\n\nStacks beautifully with other rings or makes a quiet statement on its own.",
     "shortDescription": "Twisted sterling silver band with oxidized finish.",
-    "materials": ["Sterling silver (.925)", "Oxidized finish"],
+    "materials": [
+      "Sterling silver (.925)",
+      "Oxidized finish"
+    ],
     "category": "Rings",
     "tags": [],
     "images": [
-      { "src": "/images/placeholder-ring.svg", "alt": "Twisted Vine Band front view", "isPrimary": true },
-      { "src": "/images/placeholder-ring.svg", "alt": "Twisted Vine Band detail of twist pattern" },
-      { "src": "/images/placeholder-ring.svg", "alt": "Twisted Vine Band worn on hand stacked with other rings" }
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Twisted Vine Band front view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Twisted Vine Band detail of twist pattern"
+      },
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Twisted Vine Band worn on hand stacked with other rings"
+      }
     ],
     "dimensions": {
       "bandWidth": "3mm",
@@ -182,16 +299,31 @@
     "id": "pebble-stack-bangles",
     "slug": "pebble-stack-bangles",
     "name": "Pebble Stack Bangles",
-    "price": 78.00,
+    "price": 78,
     "description": "A set of three brass bangles, each adorned with a single smooth beach pebble bead. Inspired by the quiet treasures found along a morning shoreline walk.\n\nWear all three together for a gentle, musical jingle, or share them with friends.",
     "shortDescription": "Set of three brass bangles with beach pebble beads.",
-    "materials": ["Brass", "Natural beach pebble beads"],
+    "materials": [
+      "Brass",
+      "Natural beach pebble beads"
+    ],
     "category": "Bracelets",
-    "tags": ["New"],
+    "tags": [
+      "New"
+    ],
     "images": [
-      { "src": "/images/placeholder-bracelet.svg", "alt": "Pebble Stack Bangles set of three", "isPrimary": true },
-      { "src": "/images/placeholder-bracelet.svg", "alt": "Pebble Stack Bangles close-up of pebble detail" },
-      { "src": "/images/placeholder-bracelet.svg", "alt": "Pebble Stack Bangles worn stacked on wrist" }
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "Pebble Stack Bangles set of three",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "Pebble Stack Bangles close-up of pebble detail"
+      },
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "Pebble Stack Bangles worn stacked on wrist"
+      }
     ],
     "dimensions": {
       "innerDiameter": "2.6\" (standard)",
@@ -207,16 +339,29 @@
     "id": "amber-glow-drops",
     "slug": "amber-glow-drops",
     "name": "Amber Glow Drops",
-    "price": 65.00,
+    "price": 65,
     "description": "Warm amber resin drops that glow like honey held up to the sun. Each bead is hand-formed and captures tiny air bubbles that make every pair truly one of a kind.\n\nSuspended from hand-formed gold-fill ear wires for a gentle sway that catches the light.",
     "shortDescription": "Gold-fill drop earrings with hand-formed amber resin beads.",
-    "materials": ["14K gold-fill", "Amber resin"],
+    "materials": [
+      "14K gold-fill",
+      "Amber resin"
+    ],
     "category": "Earrings",
     "tags": [],
     "images": [
-      { "src": "/images/placeholder-earrings.svg", "alt": "Amber Glow Drops front view", "isPrimary": true },
-      { "src": "/images/placeholder-earrings.svg", "alt": "Amber Glow Drops showing light through amber resin" },
-      { "src": "/images/placeholder-earrings.svg", "alt": "Amber Glow Drops worn showing movement" }
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Amber Glow Drops front view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Amber Glow Drops showing light through amber resin"
+      },
+      {
+        "src": "/images/placeholder-earrings.svg",
+        "alt": "Amber Glow Drops worn showing movement"
+      }
     ],
     "dimensions": {
       "totalLength": "2\"",
@@ -232,17 +377,35 @@
     "id": "moss-agate-ring",
     "slug": "moss-agate-ring",
     "name": "Moss Agate Ring",
-    "price": 70.00,
+    "price": 70,
     "description": "Like peering into a tiny terrarium — this moss agate stone holds a miniature landscape of green mineral inclusions frozen in translucent stone. Set in a hand-formed sterling silver bezel with a hammered band.\n\nEach stone is completely unique. The one you receive will be similar in character but distinctly yours.",
     "shortDescription": "Sterling silver bezel ring with unique moss agate stone.",
-    "materials": ["Sterling silver (.925)", "Moss agate cabochon"],
+    "materials": [
+      "Sterling silver (.925)",
+      "Moss agate cabochon"
+    ],
     "category": "Rings",
-    "tags": ["One of a Kind"],
+    "tags": [
+      "One of a Kind"
+    ],
     "images": [
-      { "src": "/images/placeholder-ring.svg", "alt": "Moss Agate Ring top view showing stone", "isPrimary": true },
-      { "src": "/images/placeholder-ring.svg", "alt": "Moss Agate Ring side profile showing bezel" },
-      { "src": "/images/placeholder-ring.svg", "alt": "Moss Agate Ring detail of moss inclusions in stone" },
-      { "src": "/images/placeholder-ring.svg", "alt": "Moss Agate Ring worn on hand" }
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Moss Agate Ring top view showing stone",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Moss Agate Ring side profile showing bezel"
+      },
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Moss Agate Ring detail of moss inclusions in stone"
+      },
+      {
+        "src": "/images/placeholder-ring.svg",
+        "alt": "Moss Agate Ring worn on hand"
+      }
     ],
     "dimensions": {
       "stoneSize": "10mm x 8mm oval",
@@ -259,16 +422,29 @@
     "id": "sage-leaf-lariat",
     "slug": "sage-leaf-lariat",
     "name": "Sage Leaf Lariat",
-    "price": 88.00,
+    "price": 88,
     "description": "An elegant Y-shaped lariat necklace with a hand-carved jade leaf pendant that sways with your movements. The gold-fill chain drapes beautifully and the adjustable length lets you wear it closer or longer.\n\nThe jade leaf is carved by a partner artisan and each one has subtly different veining — a conversation piece in every sense.",
     "shortDescription": "Gold-fill lariat necklace with hand-carved jade leaf.",
-    "materials": ["14K gold-fill chain", "Hand-carved jade leaf"],
+    "materials": [
+      "14K gold-fill chain",
+      "Hand-carved jade leaf"
+    ],
     "category": "Necklaces",
     "tags": [],
     "images": [
-      { "src": "/images/placeholder-necklace.svg", "alt": "Sage Leaf Lariat full length view", "isPrimary": true },
-      { "src": "/images/placeholder-necklace.svg", "alt": "Sage Leaf Lariat close-up of jade leaf" },
-      { "src": "/images/placeholder-necklace.svg", "alt": "Sage Leaf Lariat worn showing drape" }
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Sage Leaf Lariat full length view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Sage Leaf Lariat close-up of jade leaf"
+      },
+      {
+        "src": "/images/placeholder-necklace.svg",
+        "alt": "Sage Leaf Lariat worn showing drape"
+      }
     ],
     "dimensions": {
       "totalLength": "28\" (adjustable)",
@@ -284,16 +460,29 @@
     "id": "meadow-chain-bracelet",
     "slug": "meadow-chain-bracelet",
     "name": "Meadow Chain Bracelet",
-    "price": 52.00,
+    "price": 52,
     "description": "A dainty sterling silver chain bracelet dotted with tiny peridot gemstones — like wildflowers scattered across a sunlit meadow. The peridot beads are wire-wrapped at intervals along the chain.\n\nLight, delicate, and meant to be worn every day without a second thought.",
     "shortDescription": "Dainty sterling silver chain with peridot gemstone accents.",
-    "materials": ["Sterling silver (.925)", "Peridot gemstones"],
+    "materials": [
+      "Sterling silver (.925)",
+      "Peridot gemstones"
+    ],
     "category": "Bracelets",
     "tags": [],
     "images": [
-      { "src": "/images/placeholder-bracelet.svg", "alt": "Meadow Chain Bracelet laid flat", "isPrimary": true },
-      { "src": "/images/placeholder-bracelet.svg", "alt": "Meadow Chain Bracelet close-up of peridot beads" },
-      { "src": "/images/placeholder-bracelet.svg", "alt": "Meadow Chain Bracelet worn on wrist" }
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "Meadow Chain Bracelet laid flat",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "Meadow Chain Bracelet close-up of peridot beads"
+      },
+      {
+        "src": "/images/placeholder-bracelet.svg",
+        "alt": "Meadow Chain Bracelet worn on wrist"
+      }
     ],
     "dimensions": {
       "length": "7\" with 1\" extender",
@@ -304,5 +493,47 @@
     "madeToOrder": false,
     "featured": false,
     "isNew": false
+  },
+  {
+    "id": "cabochon-sand-dollar-fossil-silver-ring",
+    "slug": "cabochon-sand-dollar-fossil-silver-ring",
+    "name": "Cabochon Sand Dollar Fossil Silver Ring",
+    "price": 100,
+    "description": "This handcrafted sterling silver ring features a genuine sand dollar fossil cabochon, securely encased in a smooth, polished bezel setting with a clean, modern band. Because each fossil is a natural artifact of the sea, every ring is one-of-a-kind, showcasing its own unique patterns and earthy textures. Each piece is meticulously made to order, ensuring a personalized touch for this timeless, coastal-inspired accessory.",
+    "shortDescription": "This handcrafted, made-to-order sterling silver ring features a genuine, one-of-a-kind sand dollar fossil cabochon, creating a unique and personalized piece of coastal-inspired jewelry.",
+    "materials": [
+      "Sterling Silver",
+      "Sea Urchin (Sand Dollar) Fossil Cabochon"
+    ],
+    "category": "Rings",
+    "tags": [
+      "New"
+    ],
+    "images": [
+      {
+        "src": "/images/products/cabochon-sand-dollar-fossil-silver-ring/cabochon-sand-dollar-fossil-silver-ring-primary.webp",
+        "alt": "Lifestyle view",
+        "isPrimary": true
+      },
+      {
+        "src": "/images/products/cabochon-sand-dollar-fossil-silver-ring/cabochon-sand-dollar-fossil-silver-ring-02-front.webp",
+        "alt": "Front view",
+        "isPrimary": false
+      },
+      {
+        "src": "/images/products/cabochon-sand-dollar-fossil-silver-ring/cabochon-sand-dollar-fossil-silver-ring-03-side.webp",
+        "alt": "Side view",
+        "isPrimary": false
+      }
+    ],
+    "dimensions": {
+      "cabochon": "Apx 17mm x 13mm x 6mm",
+      "ringBand": "3.6mm"
+    },
+    "careInstructions": "STORAGE: Store in a cool, dry place. Use an airtight bag or jewelry pouch to prevent oxidation. Keep individual pieces separate to avoid scratches. MAINTENANCE: Wear your jewelry often; skin oils help prevent tarnish. Clean with a soft polishing cloth specifically for silver. Avoid paper towels or abrasive fabrics.",
+    "inStock": true,
+    "madeToOrder": true,
+    "featured": false,
+    "isNew": true
   }
 ]

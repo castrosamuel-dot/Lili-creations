@@ -465,9 +465,10 @@ async function main() {
 
   // ─── Build & Deploy ───
 
+  const { execSync } = await import('child_process');
+
   if (promptYN('Build and deploy now?', true)) {
     console.log('\n  Building site...\n');
-    const { execSync } = await import('child_process');
     try {
       execSync('npx astro build', { cwd: ROOT, stdio: 'inherit' });
       console.log('\n  Deploying to Firebase...\n');
@@ -483,6 +484,38 @@ async function main() {
   } else {
     console.log('\n  To deploy later, run:');
     console.log('    npm run deploy');
+  }
+
+  // ─── Git Commit & Push ───
+
+  hr();
+
+  if (promptYN('Commit & push to GitHub (keeps catalog in sync across machines)?', true)) {
+    try {
+      // Stage products.json and all product images
+      execSync('git add src/data/products.json', { cwd: ROOT, stdio: 'inherit' });
+      execSync('git add public/images/products/', { cwd: ROOT, stdio: 'inherit' });
+
+      // Build commit message from added product names
+      const names = addedProducts.map(p => p.name).join(', ');
+      const commitMsg = addedProducts.length === 1
+        ? `Add product: ${names}`
+        : `Add ${addedProducts.length} products: ${names}`;
+
+      execSync(`git commit -m "${commitMsg}"`, { cwd: ROOT, stdio: 'inherit' });
+      execSync('git push', { cwd: ROOT, stdio: 'inherit' });
+      console.log('\n  ✓ Pushed to GitHub! Catalog is now in sync.');
+    } catch (err) {
+      console.error('\n  ✗ Git push failed. You can sync manually:');
+      console.log('    git add src/data/products.json public/images/products/');
+      console.log('    git commit -m "Add new product(s)"');
+      console.log('    git push');
+    }
+  } else {
+    console.log('\n  To sync later, run:');
+    console.log('    git add src/data/products.json public/images/products/');
+    console.log('    git commit -m "Add new product(s)"');
+    console.log('    git push');
   }
 
   hr();
