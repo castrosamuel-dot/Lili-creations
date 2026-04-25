@@ -535,5 +535,39 @@
     "madeToOrder": true,
     "featured": false,
     "isNew": true
+  },
+  {
+    "id": "tanzanite-and-fresh-water-pearl-sterling-silver-bracelet",
+    "slug": "tanzanite-and-fresh-water-pearl-sterling-silver-bracelet",
+    "name": "Tanzanite and Fresh Water Pearl Sterling Silver Bracelet",
+    "price": 65,
+    "description": "This bracelet is a delicate balance of organic textures and soft, ethereal colors. It features the subtle luster of freshwater pearls paired with the soft lavender-blue hues of faceted tanzanite, creating a piece that feels both grounded and light.\nEach bead is hand-linked with sterling silver wire, using a traditional wrap technique that adds an artisanal, heirloom quality. The rhythmic alternating of the cream-colored pearls and the cool-toned gemstones evokes the calm of a morning mist over the shoreline.",
+    "shortDescription": "A delicate dance of shimmering freshwater pearls and soft lavender tanzanite, hand-linked with sterling silver for a timeless, airy grace.",
+    "materials": [
+      "Tanzanite Beads",
+      "Fresh Water Pearls",
+      "Sterling Silver"
+    ],
+    "category": "Bracelets",
+    "tags": [
+      "Bestseller",
+      "Featured",
+      "Limited Edition"
+    ],
+    "images": [
+      {
+        "src": "/images/products/tanzanite-and-fresh-water-pearl-sterling-silver-bracelet/tanzanite-and-fresh-water-pearl-sterling-silver-bracelet-primary.webp",
+        "alt": "Tanz Pearl Bracelet view",
+        "isPrimary": true
+      }
+    ],
+    "dimensions": {
+      "braceletSize": "7in"
+    },
+    "careInstructions": "STORAGE: Store in a cool, dry place. Use an airtight bag or jewelry pouch to prevent oxidation. Keep individual pieces separate to avoid scratches. MAINTENANCE: Wear your jewelry often; skin oils help prevent tarnish. Clean with a soft polishing cloth specifically for silver. Avoid paper towels or abrasive fabrics.",
+    "inStock": true,
+    "madeToOrder": false,
+    "featured": true,
+    "isNew": false
   }
 ]
